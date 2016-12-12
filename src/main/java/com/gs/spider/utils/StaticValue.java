@@ -41,7 +41,7 @@ public class StaticValue {
      * 是否需要Redis
      */
     private boolean needRedis;
-    private boolean needEs;
+    private boolean needEs;  //是否需要Elasticsearch
     private int redisPort;
     private String redisHost;
     private String webpageRedisPublishChannelName;

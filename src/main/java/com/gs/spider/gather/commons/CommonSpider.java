@@ -340,6 +340,8 @@ public class CommonSpider extends AsyncGather {
         //本页面处理时长
         page.putField("processTime", System.currentTimeMillis() - start);
     };
+    
+    
     private List<Pipeline> pipelineList;
     private CommonWebpagePipeline commonWebpagePipeline;
     private ContentLengthLimitHttpClientDownloader contentLengthLimitHttpClientDownloader;
