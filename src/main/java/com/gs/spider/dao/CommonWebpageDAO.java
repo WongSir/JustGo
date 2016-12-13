@@ -211,12 +211,12 @@ public class CommonWebpageDAO extends IDAO<Webpage> {
      * @return
      */
     public List<Webpage> listAll(int size, int page) {
-        SearchRequestBuilder searchRequestBuilder = client.prepareSearch(INDEX_NAME)
-                .setTypes(TYPE_NAME)
-                .setQuery(QueryBuilders.matchAllQuery())
-                .addSort("gatherTime", SortOrder.DESC)
-                .setSize(size).setFrom(size * (page - 1));
-        SearchResponse response = searchRequestBuilder.execute().actionGet();
+        SearchRequestBuilder searchRequestBuilder = client.prepareSearch(INDEX_NAME)  //检索的目录
+                .setTypes(TYPE_NAME) //检索的索引
+                .setQuery(QueryBuilders.matchAllQuery()) //查询 --query
+                .addSort("gatherTime", SortOrder.DESC)  //排序 --sort
+                .setSize(size).setFrom(size * (page - 1)); //topN方式  
+        SearchResponse response = searchRequestBuilder.execute().actionGet(); //执行
         return warpHits2List(response.getHits());
     }
 
