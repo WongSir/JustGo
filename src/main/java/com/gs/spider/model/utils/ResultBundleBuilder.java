@@ -9,7 +9,7 @@ import java.util.Collection;
 
 /**
  * ResultBundleBuilder
- *
+ * 构建结果集
  * @author Gao Shen
  * @version 16/2/27
  */
