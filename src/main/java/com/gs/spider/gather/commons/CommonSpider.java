@@ -446,7 +446,7 @@ public class CommonSpider extends AsyncGather {
             }
         };
         if (staticValue.isNeedEs()) {
-            scheduler.setDuplicateRemover(commonWebpagePipeline);
+            scheduler.setDuplicateRemover(commonWebpagePipeline);  //调用ES的存储操作函数commonWebpagePipeline
         }
         MySpider spider = (MySpider) makeSpider(info, task)
                 .setScheduler(scheduler);
@@ -484,6 +484,8 @@ public class CommonSpider extends AsyncGather {
         spiderMap.put(uuid, spider);
         taskManager.getTaskById(uuid).setState(State.RUNNING);
         spider.run();
+        
+        //将所抽取出来的爬虫数据由key-value形式转换为实体对象
         List<Webpage> webpageList = Lists.newLinkedList();
         resultItemsCollectorPipeline.getCollected().forEach(resultItems -> webpageList.add(CommonWebpagePipeline.convertResultItems2Webpage(resultItems)));
         return webpageList;

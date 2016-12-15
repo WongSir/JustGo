@@ -64,7 +64,7 @@ public class CommonsSpiderService extends AsyncGatherService {
 
     /**
      * 启动爬虫
-     *
+     * 使用Gson提供了fromJson()方法来实现从Json相关对象到Java实体的方法
      * @param spiderInfoJson 使用json格式进行序列化的spiderinfo
      * @return 任务id
      */

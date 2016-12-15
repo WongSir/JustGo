@@ -138,7 +138,7 @@ public class CommonWebpageDAO extends IDAO<Webpage> {
     public List<Webpage> getWebpageByDomain(String domain, int size, int page) {
         SearchRequestBuilder searchRequestBuilder = client.prepareSearch(INDEX_NAME)
                 .setTypes(TYPE_NAME)
-                .setQuery(QueryBuilders.matchQuery("domain", domain))
+                .setQuery(QueryBuilders.matchQuery("domain", domain))  //通过匹配“domain”字段查询数据
                 .addSort("gatherTime", SortOrder.DESC)
                 .setSize(size).setFrom(size * (page - 1));
         SearchResponse response = searchRequestBuilder.execute().actionGet();
@@ -197,7 +197,7 @@ public class CommonWebpageDAO extends IDAO<Webpage> {
     public List<Webpage> searchByQuery(String query, int size, int page) {
         SearchRequestBuilder searchRequestBuilder = client.prepareSearch(INDEX_NAME)
                 .setTypes(TYPE_NAME)
-                .setQuery(QueryBuilders.queryStringQuery(query).analyzer("query_ansj").defaultField("content"))
+                .setQuery(QueryBuilders.queryStringQuery(query).analyzer("query_ansj").defaultField("content"))  //设定“ansj分词器”、根据query的关键字在“content”中查询
                 .setSize(size).setFrom(size * (page - 1));
         SearchResponse response = searchRequestBuilder.execute().actionGet();
         return warpHits2List(response.getHits());
