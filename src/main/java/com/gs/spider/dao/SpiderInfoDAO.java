@@ -45,6 +45,9 @@ public class SpiderInfoDAO extends IDAO<SpiderInfo> {
     public SpiderInfoDAO() {
     }
 
+    /**
+     * 在elasticsearch中创建index（索引）和type（类型）
+     */
     @Override
     public String index(SpiderInfo spiderInfo) {
         IndexResponse indexResponse;

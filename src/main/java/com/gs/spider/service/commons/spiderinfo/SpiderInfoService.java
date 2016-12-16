@@ -49,7 +49,7 @@ public class SpiderInfoService {
     }
 
     /**
-     * 索引爬虫模板  （index是对于elasticsearch来说的，相当于mysql数据库中的insert）
+     * 索引爬虫模板  （index是对于elasticsearch来说的，相当于mysql数据库中的database）
      *
      * @param spiderInfo 爬虫模板
      * @return 如果爬虫模板索引成功则返回模板id, 否则返回null

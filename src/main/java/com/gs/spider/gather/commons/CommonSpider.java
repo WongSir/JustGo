@@ -458,7 +458,7 @@ public class CommonSpider extends AsyncGather {
         //慎用爬虫监控,可能导致内存泄露
 //        spiderMonitor.register(spider);
         spiderMap.put(uuid, spider);
-        spider.start();
+        spider.start();  //
         taskManager.getTaskById(uuid).setState(State.RUNNING);
         return uuid;
     }

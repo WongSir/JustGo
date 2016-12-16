@@ -20,9 +20,9 @@ public class ResultBundleBuilder {
 
     public <T> ResultBundle<T> bundle(String keyword, MySupplier<T> supplier) {
         ResultBundle<T> resultBundle;
-        long start = System.currentTimeMillis();
+        long start = System.currentTimeMillis(); //返回当前系统时间的毫秒数。类型为long
         try {
-            T t = supplier.get();
+            T t = supplier.get(); //取得ES自动生成的随机id
             resultBundle = new ResultBundle<>(t, keyword, System.currentTimeMillis() - start);
         } catch (Exception e) {
             resultBundle = new ResultBundle<>(keyword, System.currentTimeMillis() - start, false, e.getClass().getName() + ":" + e.getLocalizedMessage());
