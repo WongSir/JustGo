@@ -65,6 +65,9 @@ public class SpiderInfoDAO extends IDAO<SpiderInfo> {
             }
         }
         try {
+        	/**
+        	 * 在ES中创建索引、并添加数据
+        	 */
             indexResponse = client.prepareIndex(INDEX_NAME, TYPE_NAME)
                     .setSource(gson.toJson(spiderInfo))
                     .get();
