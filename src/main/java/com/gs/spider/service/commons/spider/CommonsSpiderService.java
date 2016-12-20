@@ -52,7 +52,7 @@ public class CommonsSpiderService extends AsyncGatherService {
         //如果id为空则直接存储
         if (StringUtils.isBlank(spiderInfo.getId())) {
             validateSpiderInfo(spiderInfo);
-            String spiderInfoId = spiderInfoService.index(spiderInfo).getResult(); //获取创建index时ES自动生成的随机id
+            String spiderInfoId = spiderInfoService.index(spiderInfo).getResult(); //获取创建index时ES自动生成的随机id作为模板列表spiderinfo的id
             spiderInfo.setId(spiderInfoId);
             System.out.println("");
         } else {

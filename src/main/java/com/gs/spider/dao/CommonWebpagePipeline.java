@@ -89,6 +89,10 @@ public class CommonWebpagePipeline extends IDAO<Webpage> implements DuplicateRem
         return esClient.checkCommonsIndex() && esClient.checkWebpageType();
     }
 
+    /**
+     * 实现us.codecraft.webmagic.scheduler.component.DuplicateRemover接口的isDuplicate方法，
+     * 自己补充实现去重逻辑
+     */
     @Override
     public boolean isDuplicate(Request request, Task task) {
         Set<String> tempLists = urls.get(task.getUUID());
@@ -118,6 +122,9 @@ public class CommonWebpagePipeline extends IDAO<Webpage> implements DuplicateRem
         return COUNT++;
     }
 
+    /**
+     * 实现WebMagic框架中的Pipeline组件的接口process方法，负责存储数据
+     */
     @Override
     public void process(ResultItems resultItems, Task task) {
         SpiderInfo spiderInfo = resultItems.get("spiderInfo");
@@ -128,6 +135,9 @@ public class CommonWebpagePipeline extends IDAO<Webpage> implements DuplicateRem
         SearchResponse response = searchRequestBuilder.execute().actionGet();
         if (response.getHits().totalHits() == 0) {
             try {
+            	/**
+            	 * 在ES中创建索引commons、并添加抓取到的网页数据
+            	 */
                 client.prepareIndex(INDEX_NAME, TYPE_NAME)
                         .setId(Hashing.md5().hashString(webpage.getUrl(), Charset.forName("utf-8")).toString())
                         .setSource(gson.toJson(webpage))

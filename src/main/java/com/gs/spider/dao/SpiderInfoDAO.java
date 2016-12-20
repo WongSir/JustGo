@@ -66,13 +66,14 @@ public class SpiderInfoDAO extends IDAO<SpiderInfo> {
         }
         try {
         	/**
-        	 * 在ES中创建索引、并添加数据
+        	 * 在ES中创建索引spiderinfo、并添加模板数据
         	 */
             indexResponse = client.prepareIndex(INDEX_NAME, TYPE_NAME)
                     .setSource(gson.toJson(spiderInfo))
                     .get();
             LOG.debug("索引爬虫模板成功");
-            return indexResponse.getId();
+//            String a = indexResponse.getId();
+            return indexResponse.getId();  //模板id是由ES随机生成的
         } catch (Exception e) {
             LOG.error("索引 Webpage 出错," + e.getLocalizedMessage());
         }
