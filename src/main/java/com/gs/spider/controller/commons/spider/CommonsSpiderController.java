@@ -1,11 +1,7 @@
 package com.gs.spider.controller.commons.spider;
 
-import com.gs.spider.controller.AsyncGatherBaseController;
-import com.gs.spider.model.commons.Webpage;
-import com.gs.spider.model.utils.ResultBundle;
-import com.gs.spider.model.utils.ResultListBundle;
-import com.gs.spider.service.AsyncGatherService;
-import com.gs.spider.service.commons.spider.CommonsSpiderService;
+import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Map;
+import com.gs.spider.controller.AsyncGatherBaseController;
+import com.gs.spider.model.commons.Webpage;
+import com.gs.spider.model.utils.ResultBundle;
+import com.gs.spider.model.utils.ResultListBundle;
+import com.gs.spider.service.AsyncGatherService;
+import com.gs.spider.service.commons.spider.CommonsSpiderService;
+import com.gs.spider.utils.SpiderTemplate;
 
 /**
  * CommonsWebpageDownloadController
@@ -46,6 +48,19 @@ public class CommonsSpiderController extends AsyncGatherBaseController {
     @ResponseBody
     public ResultBundle<String> start(String spiderInfoJson) {
         return spiderService.start(spiderInfoJson);
+    }
+    
+    /**
+     * 启动爬虫
+     * 直接内部加载已设定好的爬虫模板
+     * @return 任务id
+     */
+    @RequestMapping(value = "startWithJsonFile", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
+    @ResponseBody
+    public ResultBundle<String> startWithJsonFile(){
+    	SpiderTemplate spiderTemplate = new SpiderTemplate();
+    	String spiderInfoJson = spiderTemplate.jsonFileTemplate();
+    	return spiderService.start(spiderInfoJson);
     }
 
     /**
