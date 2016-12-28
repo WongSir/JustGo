@@ -19,6 +19,11 @@
     </mvc:annotation-driven>
     <mvc:resources location="/js/" mapping="/js/**" cache-period="2592000"/>
     <mvc:resources location="/css/" mapping="/css/**" cache-period="2592000"/>
+    <mvc:resources location="/pages/mypages/js/" mapping="/pages/mypages/js/**" cache-period="2592000"/>
+    <mvc:resources location="/pages/mypages/js2/" mapping="/pages/mypages/js2/**" cache-period="2592000"/>
+    <mvc:resources location="/pages/mypages/css/" mapping="/pages/mypages/css/**" cache-period="2592000"/>
+    <mvc:resources location="/pages/mypages/css2/" mapping="/pages/mypages/css2/**" cache-period="2592000"/>
+    <mvc:resources location="/pages/mypages/imgs/" mapping="/pages/mypages/imgs/**" cache-period="2592000"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/pages/"/>

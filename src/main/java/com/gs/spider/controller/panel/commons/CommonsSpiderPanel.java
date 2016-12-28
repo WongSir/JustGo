@@ -65,6 +65,15 @@ public class CommonsSpiderPanel extends BaseController {
         return modelAndView;
     }
 
+    /**
+     * 资讯列表页
+     * @return
+     */
+    @RequestMapping(value="listTest")
+    public ModelAndView listTest(){
+    	ModelAndView modelAndView = new ModelAndView("mypages/my/list");
+		return modelAndView;
+    }
 
     /**
      * 域名列表
