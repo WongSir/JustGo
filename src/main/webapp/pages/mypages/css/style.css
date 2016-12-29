@@ -314,7 +314,7 @@ label{
 	cursor: pointer;
 }
 .sb-search-submit {
-	background: #e2dee0 url('../imgs/search.png') no-repeat 0 0;
+	background: #e2dee0 url('/spider/pages/mypages/imgs/search.png') no-repeat 0 0;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; /* IE 8 */
     filter: alpha(opacity=0); /* IE 5-7 */
     color: transparent;
@@ -324,7 +324,7 @@ label{
 	-webkit-appearance: none;
 }
 .sb-icon-search {
-    background:#fff url('../imgs/search.png') no-repeat 0px 0px;
+    background:#fff url('/spider/pages/mypages/imgs/search.png') no-repeat 0px 0px;
 	z-index: 90;
 }
 /* Open state */
