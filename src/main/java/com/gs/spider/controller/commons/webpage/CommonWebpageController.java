@@ -93,7 +93,7 @@ public class CommonWebpageController {
     @RequestMapping(value = "searchByQuery", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public ResultListBundle<Webpage> searchByQuery(String query, @RequestParam(value = "size", required = false, defaultValue = "10") int size, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-        return webpageService.searchByQuery(query, size, page);
+        return webpageService.searchByQueryAndPage(query, size, page);
     }
 
     /**

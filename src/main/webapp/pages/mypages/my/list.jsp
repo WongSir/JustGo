@@ -37,484 +37,138 @@
 	});
 </script>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/pages/mypages/css2/fancybox.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/pages/mypages/css2/style.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/pages/mypages/css2/reset.css" type="text/css" media="screen" />
+<script type="text/javascript">
+	var mpage = 1;
+
+	  function UrlValue(name) { //获取页面URL地址参数方法
+	        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); //声明正则表达式
+	        var r = window.location.search.trim().substr(1).match(reg); //用正则表达式匹配URL地址参数
+	        if (r != null) return decodeURI(r[2]); return null; //如果匹配到参数，返回参数结果，如果没有匹配到，返回null
+	}
+
+	function changePage1() {
+		/* var currentPage = +$("#page").val(); //取得当前页 */
+		var currentPage = UrlValue("page");
+		mpage = currentPage - 1;
+		if (mpage < 1) {
+			alert("到始发站了哦！");
+			$("#page").val(1);
+		} else {
+			$("#page").val(mpage);
+		}
+		$("#webpageForm").submit();
+	}
+	function changePage2() {
+		var currentPage = UrlValue("page"); //取得当前页
+		mpage = + currentPage + 1;
+		$("#page").val(mpage);
+		$("#webpageForm").submit();
+	}
+</script>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/pages/mypages/css2/fancybox.css" type="text/css"  />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/pages/mypages/css2/my.css" type="text/css" />
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/pages/mypages/css2/reset.css" type="text/css"  /> --%>
 
 </head>
 <body>
 	<%@include file="head.jsp"%>
-<div id="content">
 
-	<div class="container">
+	<div id="content">
+		<form class="form-inline" id="webpageForm"
+			action="${pageContext.request.contextPath}/panel/commons/listTest">
+			<div class="form-group">
+				<label for="query">关键词:</label> <input class="form-control"
+					id="query" name="query" value="${query}"> <input
+					class="form-control" type="number" style="display: none" id="page"
+					name="page" value="${page}">
 
-		<div id="main">
+				<button type="submit" class="btn btn-primary" id="priceSubmit">搜索</button>
+				<button class="btn btn-primary" id="priceSubmit1"
+					onclick="changePage1()">上一页</button>
+				<button class="btn btn-primary" id="priceSubmit2"
+					onclick="changePage2()">下一页</button>
+			</div>
 
-			<div class="entry collapsible">
+		</form>
 
-				<div class="entry-header">
+		<div class="container">
 
-					<img src="${pageContext.request.contextPath}/pages/mypages/imgs/75x40.jpg" width="75" height="40" alt="" class="entry-title-image">
+			<div id="main">
 
-					<h2 class="title">Founded new Animal type...</h2>
+				<div class="entry collapsible">
+					<c:forEach items="${resultBundle}" var="webpage" varStatus="index">
+						<div class="entry-header">
 
-					<p class="meta">Published on <a href="#">March 29, 2010</a> by <a href="#">John Doe</a></p>
+							<img
+								src="${pageContext.request.contextPath}/pages/mypages/imgs/75x40.jpg"
+								width="75" height="40" alt="" class="entry-title-image">
 
-					<a class="button news-trigger" href="#">Read More...</a>
+							<h2 class="title">${webpage.title }</h2>
 
-				</div><!-- end .entry-header -->
+							<p class="meta">
+								抓取时间： <a href="#"><fmt:formatDate
+										value="${webpage.gathertime}" pattern="yyyy/MM/dd HH:mm:ss" /></a>
+								信息分类： <a href="#">${webpage.category }</a>
+								来源：<a href="#"></a>
+							</p>
 
-				<div class="collapsible-content">
+							<a class="button news-trigger" href="#">Read More...</a>
 
-					<div class="entry-content">
-
-						<div class="zoom align-right">
-							<a class="single_image" href="${pageContext.request.contextPath}/pages/mypages/imgs/800x600.jpg">
-								<img src="${pageContext.request.contextPath}/pages/mypages/imgs/650x210.jpg" width="210" height="210" alt="Texas Trip 2010: Abandoned ranch" class="entry-image" />
-							</a>
 						</div>
+						<!-- end .entry-header -->
 
-						<p>Proin ornare, ante vitae tristique mattis, massa neque mattis justo, vel dapibus lectus urna quis orci. In imperdiet sapien eleifend turpis auctor imperdiet. Duis elementum consequat ante non accumsan. Aliquam mattis aliquam bibendum. Vivamus lobortis est ac lorem feugiat ac vestibulum velit viverra. Nullam dapibus elementum risus, volutpat fringilla libero aliquet vel. Integer in dui sed quam feugiat lobortis et non est. Sed aliquam, diam sed convallis laoreet, augue libero fermentum libero, eu pulvinar quam sem ac eros. In ac adipiscing mauris. Nulla sollicitudin ultricies nisi. </p>
+						<div class="collapsible-content">
 
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet enim hendrerit neque pharetra venenatis. Pellentesque a orci nisi, eu ultricies augue. Mauris feugiat sapien ac tellus facilisis bibendum. Duis sit amet ante sit amet lorem hendrerit gravida a nec mauris. Phasellus iaculis interdum ligula, ut ultricies risus porttitor sit amet. Praesent id felis ut mauris malesuada bibendum. Curabitur felis odio, adipiscing et blandit pellentesque, pretium et libero. Cras tincidunt tortor justo, in congue lectus. Etiam sagittis ligula a mauris laoreet ac consequat turpis sagittis. Suspendisse potenti. Ut nec sollicitudin felis. In hac habitasse platea dictumst. Quisque ut consequat enim. Curabitur sed ipsum nunc, non dignissim nibh. Cras sit amet molestie ante. Phasellus ipsum nulla, lacinia vel vestibulum eu, auctor id eros. Nunc faucibus felis vitae lacus cursus ut pretium massa mollis. Mauris neque diam, tincidunt hendrerit pellentesque sed, bibendum in sem. Curabitur elementum est a turpis hendrerit vel laoreet ante semper. Nam metus velit, sollicitudin ac feugiat at, viverra fermentum nibh. </p>
+							<div class="entry-content">
 
-						<dl>
-							<dt>Web:</dt>
-								<dd>www.yourdomain.com</dd>
-							<dt>Email:</dt>
-								<dd>yourmail@yourdomain.com</dd>
-							<dt>Phone:</dt>
-								<dd>+88 44 777 99</dd>
-						</dl>
+								<dl>
+									<dt>原文链接:</dt>
+									<dd>
+										<a class="" href="${webpage.url}">${webpage.url}</a>
+									</dd>
+								</dl>
 
-					</div><!-- end .entry-content -->
+								<p>${webpage.content }</p>
 
-					<div class="box-footer">
+							</div>
+							<!-- end .entry-content -->
 
-						<div class="align-left">
+							<div class="box-footer">
 
-							<strong class="align-left">Share this via:</strong>
+								<div class="align-left"></div>
+								<!-- end .align-left -->
 
-							<ul class="social-links align-left">
-								<li><a href="#"><img alt="Digg" src="img/icons/social-icons/digg.png"></a></li>
-								<li><a href="#"><img alt="Facebook" src="img/icons/social-icons/facebook.png"></a></li>
-								<li><a href="#"><img alt="Flickr" src="img/icons/social-icons/flickr.png"></a></li>
-								<li><a href="#"><img alt="Twittew" src="img/icons/social-icons/twitter.png"></a></li>
-								<li><a href="#"><img alt="Delicious" src="img/icons/social-icons/delicious.png"></a></li>
-								<li><a href="#"><img alt="Tumblr" src="img/icons/social-icons/tumblr.png"></a></li>
-							</ul>
+							</div>
+							<!-- end .box-footer -->
 
-						</div><!-- end .align-left -->
-
-					</div><!-- end .box-footer -->
-
-				</div><!-- end .collapsible-content -->
-
-			</div><!-- end .entry -->
-
-			<div class="entry collapsible">
-
-				<div class="entry-header">
-
-					<img src="img/sample-images/75x40.jpg" width="75" height="40" alt="" class="entry-title-image">
-
-					<h2 class="title">Each month Gift a new umbrellas</h2>
-
-					<p class="meta">Published on <a href="#">March 29, 2010</a> by <a href="#">John Doe</a></p>
-
-					<a class="button news-trigger" href="#">Read More...</a>
-
-				</div><!-- end .entry-header -->
-
-				<div class="collapsible-content">
-
-					<div class="entry-content">
-
-						<div class="zoom align-right">
-							<a class="single_image" href="img/sample-images/800x600.jpg">
-								<img src="img/sample-images/650x210.jpg" width="210" height="210" alt="Texas Trip 2010: Abandoned ranch" class="entry-image" />
-							</a>
 						</div>
+						<!-- end .collapsible-content -->
+					</c:forEach>
+					</table>
+				</div>
+				<!-- end .entry -->
 
-						<p>Proin ornare, ante vitae tristique mattis, massa neque mattis justo, vel dapibus lectus urna quis orci. In imperdiet sapien eleifend turpis auctor imperdiet. Duis elementum consequat ante non accumsan. Aliquam mattis aliquam bibendum. Vivamus lobortis est ac lorem feugiat ac vestibulum velit viverra. Nullam dapibus elementum risus, volutpat fringilla libero aliquet vel. Integer in dui sed quam feugiat lobortis et non est. Sed aliquam, diam sed convallis laoreet, augue libero fermentum libero, eu pulvinar quam sem ac eros. In ac adipiscing mauris. Nulla sollicitudin ultricies nisi. </p>
+			</div>
+			<!-- end #main -->
 
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet enim hendrerit neque pharetra venenatis. Pellentesque a orci nisi, eu ultricies augue. Mauris feugiat sapien ac tellus facilisis bibendum. Duis sit amet ante sit amet lorem hendrerit gravida a nec mauris. Phasellus iaculis interdum ligula, ut ultricies risus porttitor sit amet. Praesent id felis ut mauris malesuada bibendum. Curabitur felis odio, adipiscing et blandit pellentesque, pretium et libero. Cras tincidunt tortor justo, in congue lectus. Etiam sagittis ligula a mauris laoreet ac consequat turpis sagittis. Suspendisse potenti. Ut nec sollicitudin felis. In hac habitasse platea dictumst. Quisque ut consequat enim. Curabitur sed ipsum nunc, non dignissim nibh. Cras sit amet molestie ante. Phasellus ipsum nulla, lacinia vel vestibulum eu, auctor id eros. Nunc faucibus felis vitae lacus cursus ut pretium massa mollis. Mauris neque diam, tincidunt hendrerit pellentesque sed, bibendum in sem. Curabitur elementum est a turpis hendrerit vel laoreet ante semper. Nam metus velit, sollicitudin ac feugiat at, viverra fermentum nibh. </p>
+			<div class="clear"></div>
 
-						<dl>
-							<dt>Web:</dt>
-								<dd>www.yourdomain.com</dd>
-							<dt>Email:</dt>
-								<dd>yourmail@yourdomain.com</dd>
-							<dt>Phone:</dt>
-								<dd>+88 44 777 99</dd>
-						</dl>
+		</div>
+		<!-- end .container -->
 
-					</div><!-- end .entry-content -->
+	</div>
+	<!-- end #content -->
 
-					<div class="box-footer">
-
-						<div class="align-left">
-
-							<strong class="align-left">Share this via:</strong>
-
-							<ul class="social-links align-left">
-								<li><a href="#"><img alt="Digg" src="img/icons/social-icons/digg.png"></a></li>
-								<li><a href="#"><img alt="Facebook" src="img/icons/social-icons/facebook.png"></a></li>
-								<li><a href="#"><img alt="Flickr" src="img/icons/social-icons/flickr.png"></a></li>
-								<li><a href="#"><img alt="Twittew" src="img/icons/social-icons/twitter.png"></a></li>
-								<li><a href="#"><img alt="Delicious" src="img/icons/social-icons/delicious.png"></a></li>
-								<li><a href="#"><img alt="Tumblr" src="img/icons/social-icons/tumblr.png"></a></li>
-							</ul>
-
-						</div><!-- end .align-left -->
-
-					</div><!-- end .box-footer -->
-
-				</div><!-- end .collapsible-content -->
-
-			</div><!-- end .entry -->
-
-			<div class="entry collapsible">
-
-				<div class="entry-header">
-
-					<img src="img/sample-images/75x40.jpg" width="75" height="40" alt="" class="entry-title-image">
-
-					<h2 class="title">Discovered new orchid varities</h2>
-
-					<p class="meta">Published on <a href="#">March 29, 2010</a> by <a href="#">John Doe</a></p>
-
-					<a class="button news-trigger" href="#">Read More...</a>
-
-				</div><!-- end .entry-header -->
-
-				<div class="collapsible-content">
-
-					<div class="entry-content">
-
-						<div class="zoom align-right">
-							<a class="single_image" href="img/sample-images/800x600.jpg">
-								<img src="img/sample-images/650x210.jpg" width="210" height="210" alt="Texas Trip 2010: Abandoned ranch" class="entry-image" />
-							</a>
-						</div>
-
-						<p>Proin ornare, ante vitae tristique mattis, massa neque mattis justo, vel dapibus lectus urna quis orci. In imperdiet sapien eleifend turpis auctor imperdiet. Duis elementum consequat ante non accumsan. Aliquam mattis aliquam bibendum. Vivamus lobortis est ac lorem feugiat ac vestibulum velit viverra. Nullam dapibus elementum risus, volutpat fringilla libero aliquet vel. Integer in dui sed quam feugiat lobortis et non est. Sed aliquam, diam sed convallis laoreet, augue libero fermentum libero, eu pulvinar quam sem ac eros. In ac adipiscing mauris. Nulla sollicitudin ultricies nisi. </p>
-
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet enim hendrerit neque pharetra venenatis. Pellentesque a orci nisi, eu ultricies augue. Mauris feugiat sapien ac tellus facilisis bibendum. Duis sit amet ante sit amet lorem hendrerit gravida a nec mauris. Phasellus iaculis interdum ligula, ut ultricies risus porttitor sit amet. Praesent id felis ut mauris malesuada bibendum. Curabitur felis odio, adipiscing et blandit pellentesque, pretium et libero. Cras tincidunt tortor justo, in congue lectus. Etiam sagittis ligula a mauris laoreet ac consequat turpis sagittis. Suspendisse potenti. Ut nec sollicitudin felis. In hac habitasse platea dictumst. Quisque ut consequat enim. Curabitur sed ipsum nunc, non dignissim nibh. Cras sit amet molestie ante. Phasellus ipsum nulla, lacinia vel vestibulum eu, auctor id eros. Nunc faucibus felis vitae lacus cursus ut pretium massa mollis. Mauris neque diam, tincidunt hendrerit pellentesque sed, bibendum in sem. Curabitur elementum est a turpis hendrerit vel laoreet ante semper. Nam metus velit, sollicitudin ac feugiat at, viverra fermentum nibh. </p>
-
-						<dl>
-							<dt>Web:</dt>
-								<dd>www.yourdomain.com</dd>
-							<dt>Email:</dt>
-								<dd>yourmail@yourdomain.com</dd>
-							<dt>Phone:</dt>
-								<dd>+88 44 777 99</dd>
-						</dl>
-
-					</div><!-- end .entry-content -->
-
-					<div class="box-footer">
-
-						<div class="align-left">
-
-							<strong class="align-left">Share this via:</strong>
-
-							<ul class="social-links align-left">
-								<li><a href="#"><img alt="Digg" src="img/icons/social-icons/digg.png"></a></li>
-								<li><a href="#"><img alt="Facebook" src="img/icons/social-icons/facebook.png"></a></li>
-								<li><a href="#"><img alt="Flickr" src="img/icons/social-icons/flickr.png"></a></li>
-								<li><a href="#"><img alt="Twittew" src="img/icons/social-icons/twitter.png"></a></li>
-								<li><a href="#"><img alt="Delicious" src="img/icons/social-icons/delicious.png"></a></li>
-								<li><a href="#"><img alt="Tumblr" src="img/icons/social-icons/tumblr.png"></a></li>
-							</ul>
-
-						</div><!-- end .align-left -->
-
-					</div><!-- end .box-footer -->
-
-				</div><!-- end .collapsible-content -->
-
-			</div><!-- end .entry -->
-
-			<div class="entry collapsible">
-
-				<div class="entry-header">
-
-					<img src="img/sample-images/75x40.jpg" width="75" height="40" alt="" class="entry-title-image">
-
-					<h2 class="title">Plane crash caught on tape</h2>
-
-					<p class="meta">Published on <a href="#">March 29, 2010</a> by <a href="#">John Doe</a></p>
-
-					<a class="button news-trigger" href="#">Read More...</a>
-
-				</div><!-- end .entry-header -->
-
-				<div class="collapsible-content">
-
-					<div class="entry-content">
-
-						<div class="zoom align-right">
-							<a class="single_image" href="img/sample-images/800x600.jpg">
-								<img src="img/sample-images/650x210.jpg" width="210" height="210" alt="Texas Trip 2010: Abandoned ranch" class="entry-image" />
-							</a>
-						</div>
-
-						<p>Proin ornare, ante vitae tristique mattis, massa neque mattis justo, vel dapibus lectus urna quis orci. In imperdiet sapien eleifend turpis auctor imperdiet. Duis elementum consequat ante non accumsan. Aliquam mattis aliquam bibendum. Vivamus lobortis est ac lorem feugiat ac vestibulum velit viverra. Nullam dapibus elementum risus, volutpat fringilla libero aliquet vel. Integer in dui sed quam feugiat lobortis et non est. Sed aliquam, diam sed convallis laoreet, augue libero fermentum libero, eu pulvinar quam sem ac eros. In ac adipiscing mauris. Nulla sollicitudin ultricies nisi. </p>
-
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet enim hendrerit neque pharetra venenatis. Pellentesque a orci nisi, eu ultricies augue. Mauris feugiat sapien ac tellus facilisis bibendum. Duis sit amet ante sit amet lorem hendrerit gravida a nec mauris. Phasellus iaculis interdum ligula, ut ultricies risus porttitor sit amet. Praesent id felis ut mauris malesuada bibendum. Curabitur felis odio, adipiscing et blandit pellentesque, pretium et libero. Cras tincidunt tortor justo, in congue lectus. Etiam sagittis ligula a mauris laoreet ac consequat turpis sagittis. Suspendisse potenti. Ut nec sollicitudin felis. In hac habitasse platea dictumst. Quisque ut consequat enim. Curabitur sed ipsum nunc, non dignissim nibh. Cras sit amet molestie ante. Phasellus ipsum nulla, lacinia vel vestibulum eu, auctor id eros. Nunc faucibus felis vitae lacus cursus ut pretium massa mollis. Mauris neque diam, tincidunt hendrerit pellentesque sed, bibendum in sem. Curabitur elementum est a turpis hendrerit vel laoreet ante semper. Nam metus velit, sollicitudin ac feugiat at, viverra fermentum nibh. </p>
-
-						<dl>
-							<dt>Web:</dt>
-								<dd>www.yourdomain.com</dd>
-							<dt>Email:</dt>
-								<dd>yourmail@yourdomain.com</dd>
-							<dt>Phone:</dt>
-								<dd>+88 44 777 99</dd>
-						</dl>
-
-					</div><!-- end .entry-content -->
-
-					<div class="box-footer">
-
-						<div class="align-left">
-
-							<strong class="align-left">Share this via:</strong>
-
-							<ul class="social-links align-left">
-								<li><a href="#"><img alt="Digg" src="img/icons/social-icons/digg.png"></a></li>
-								<li><a href="#"><img alt="Facebook" src="img/icons/social-icons/facebook.png"></a></li>
-								<li><a href="#"><img alt="Flickr" src="img/icons/social-icons/flickr.png"></a></li>
-								<li><a href="#"><img alt="Twittew" src="img/icons/social-icons/twitter.png"></a></li>
-								<li><a href="#"><img alt="Delicious" src="img/icons/social-icons/delicious.png"></a></li>
-								<li><a href="#"><img alt="Tumblr" src="img/icons/social-icons/tumblr.png"></a></li>
-							</ul>
-
-						</div><!-- end .align-left -->
-
-					</div><!-- end .box-footer -->
-
-				</div><!-- end .collapsible-content -->
-
-			</div><!-- end .entry -->
-
-			<ul class="pagination">
-				<li class="prev"><a href="#">Prev</a></li>
-				<li><a href="#">1</a></li>
-				<li class="active"><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li class="next"><a href="#">Next</a></li>
-			</ul>
-			
-			<a href="#"><img alt="tf_468x60_v4" src="http://envato.s3.amazonaws.com/referrer_adverts/ad_468x60_v4.gif" class="ad" /></a>
-
-		</div><!-- end #main -->
-
-		<div id="sidebar">
-
-			<div class="ads box">
-
-				<ul>
-					<li>
-						<a href="#?ref=smuliii"><img width="125" height="125" src="http://envato.s3.amazonaws.com/referrer_adverts/tf_125x125_v5.gif" alt="Themeforest"></a>
-					</li>
-					<li class="even">
-						<a href="http://graphicriver.net/?ref=smuliii"><img width="125" height="125" src="http://envato.s3.amazonaws.com/referrer_adverts/gr_125x125_v4.gif" alt="Graphicriver"></a>
-					</li>
-					<li>
-						<a href="http://activeden.net/?ref=smuliii"><img width="125" height="125" src="http://envato.s3.amazonaws.com/referrer_adverts/ad_125x125_v4.gif" alt="Activeden"></a>
-					</li>
-					<li class="even">
-						<a href="http://codecanyon.net/?ref=smuliii"><img width="125" height="125" src="http://envato.s3.amazonaws.com/referrer_adverts/cc_125x125_v1.gif" alt="CodeCanyon"></a>
-					</li>
-				</ul>
-
-				<p class="align-center"><a href="#">Advertise With Us</a></p>
-
-			</div><!-- end .ads -->
-
-			<div id="recent-tabs" class="box">
-
-				<div class="box-header">
-
-					<ul class="nav">
-						<li><a class="current" href="#recent-tabs-posts">Recent Post</a></li>
-						<li><a href="#recent-tabs-comments">Recent Comments</a></li>
-					</ul>
-
-				</div><!-- end .box-header -->
-
-				<div class="list-wrap">
-
-					<ul id="recent-tabs-posts">
-
-						<li>
-							<a href="single-post.html" class="title">
-								<img src="img/sample-images/40x40.jpg" width="40" height="40" alt="" />
-								Palmtree Wind Photo from Miami ...
-							</a>
-							<p class="meta">Published on <a href="#">March 29, 2010</a> by <a href="#">John Doe</a></p>
-						</li>
-
-						<li>
-							<a href="single-post.html" class="title">
-								<img src="img/sample-images/40x40.jpg" width="40" height="40" alt="" />
-								Keep Off: Beach Attention Table
-							</a>
-							<p class="meta">Published on <a href="#">March 29, 2010</a> by <a href="#">John Doe</a></p>
-						</li>
-
-						<li>
-							<a href="single-post.html" class="title">
-								<img src="img/sample-images/40x40.jpg" width="40" height="40" alt="" />
-								Museum: Native American Style Box
-							</a>
-							<p class="meta">Published on <a href="#">March 29, 2010</a> by <a href="#">John Doe</a></p>
-						</li>
-
-						<li>
-							<a href="single-post.html" class="title">
-								<img src="img/sample-images/40x40.jpg" width="40" height="40" alt="" />
-								Abroad Trip: Australian Rocks
-							</a>
-							<p class="meta">Published on <a href="#">March 29, 2010</a> by <a href="#">John Doe</a></p>
-						</li>
-
-						<li>
-							<a href="single-post.html" class="title">
-								<img src="img/sample-images/40x40.jpg" width="40" height="40" alt="" />
-								Texas Trip 2010: Abandoned ranch
-							</a>
-							<p class="meta">Published on <a href="#">March 29, 2010</a> by <a href="#">John Doe</a></p>
-						</li>
-
-					</ul><!-- end #recent-tabs-posts-->
-
-					<ul id="recent-tabs-comments" class="hide">
-
-						<li>
-							<a href="single-post.html" class="title">
-								<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=40" width="40" height="40" alt="" />
-								Lorem ipsum dolor sit amet...
-							</a>
-							<p class="meta">Commented on <a href="#">March 29, 2010</a> by <a href="#">John Doe</a></p>
-						</li>
-
-						<li>
-							<a href="single-post.html" class="title">
-								<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=40" width="40" height="40" alt="" />
-								Lorem Ipsum is simply dummy text...
-							</a>
-							<p class="meta">Commented on <a href="#">March 17, 2010</a> by <a href="#">John Doe</a></p>
-						</li>
-
-						<li>
-							<a href="single-post.html" class="title">
-								<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=40" width="40" height="40" alt="" />
-								Lorem ipsum dolor sit amet...
-							</a>
-							<p class="meta">Commented on <a href="#">March 3, 2010</a> by <a href="#">John Doe</a></p>
-						</li>
-
-					</ul><!-- end #recent-tabs-comments -->
-
-				</div><!-- end .list-wrap -->
-
-			</div><!-- end #recent-tabs -->
-
-			<div class="flickr-feed box">
-
-				<div class="box-header">
-
-					<h6 class="align-left"><img src="img/icon-flickr-feed.png" alt="icon-flickr-feed" class="flickr-icon" /> Our Flickr Group</h6>
-
-					<a href="#" class="align-right">Sign In</a>
-
-				</div><!-- end .box-header -->
-
-				<ul>
-					<li>
-						<a href="http://www.flickr.com/photos/kwl/2432868269/">
-							<img src="img/sample-images/75x75.jpg" width="75" height="75" alt="" class="flickr-image" />
-						</a>
-					</li>
-					<li>
-						<a href="http://www.flickr.com/photos/dexxus/4338578468/">
-							<img src="img/sample-images/75x75.jpg" width="75" height="75" alt="" class="flickr-image" />
-						</a>
-					</li>
-					<li>
-						<a href="http://www.flickr.com/photos/extranoise/158135547/">
-							<img src="img/sample-images/75x75.jpg" width="75" height="75" alt="" class="flickr-image" />
-						</a>
-					</li>
-					<li>
-						<a href="http://www.flickr.com/photos/18614695@N00/3472778601/">
-							<img src="img/sample-images/75x75.jpg" width="75" height="75" alt="" class="flickr-image" />
-						</a>
-					</li>
-					<li>
-						<a href="http://www.flickr.com/photos/notsogoodphotography/466107969/">
-							<img src="img/sample-images/75x75.jpg" width="75" height="75" alt="" class="flickr-image" />
-						</a>
-					</li>
-					<li>
-						<a href="http://www.flickr.com/photos/brunociampi/2487769238/">
-							<img src="img/sample-images/75x75.jpg" width="75" height="75" alt="" class="flickr-image" />
-						</a>
-					</li>
-				</ul>
-
-			</div><!-- end .flickr-feed -->
-
-			<div class="tags box">
-
-				<div class="box-header">
-
-					<h6>TravelGuide Tags</h6>
-
-				</div><!-- end .box-header -->
-
-				<ul>
-					<li><a href="#">New York City</a></li>
-					<li><a href="#">Australia</a></li>
-					<li><a href="#">Woods</a></li>
-					<li><a href="#">Beach</a></li>
-					<li><a href="#">Brooklyn</a></li>
-					<li><a href="#">Bridge</a></li>
-					<li><a href="#">Texas</a></li>
-					<li><a href="#">2010</a></li>
-					<li><a href="#">Palmtree</a></li>
-					<li><a href="#">Miami</a></li>
-					<li><a href="#">Museum</a></li>
-					<li><a href="#">Native</a></li>
-					<li><a href="#">American</a></li>
-					<li><a href="#">Trips</a></li>
-					<li><a href="#">Private</a></li>
-					<li><a href="#">Family</a></li>
-					<li><a href="#">Photo</a></li>
-				</ul>
-
-			</div><!-- end .tags -->
-
-			<img src="img/ad.gif" alt="ad" class="ad-bar" />
-			<a href="#?ref=smuliii"><img src="http://envato.s3.amazonaws.com/referrer_adverts/tf_300x250_v5.gif" alt="tf_300x250_v5" class="ad" /></a>
-
-		</div><!-- end #sidebar -->
-
-		<div class="clear"></div>
-
-	</div><!-- end .container -->
-
-</div><!-- end #content -->
-
-<script src="${pageContext.request.contextPath}/pages/mypages/js2/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/pages/mypages/js2/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/pages/mypages/js2/jquery.cycle.all.min.js"></script>
 <script src="${pageContext.request.contextPath}/pages/mypages/js2/jquery.easing.1.3.js"></script>
 <script src="${pageContext.request.contextPath}/pages/mypages/js2/organictabs.jquery.js"></script>
 <script src="${pageContext.request.contextPath}/pages/mypages/js2/jquery.fancybox-1.3.4.pack.js"></script>
 <script src="${pageContext.request.contextPath}/pages/mypages/js2/css3-mediaqueries.js"></script>
-<script src="${pageContext.request.contextPath}/pages/mypages/js2/custom.js"></script>
+<script src="${pageContext.request.contextPath}/pages/mypages/js2/my.js"></script>
+<script src="${pageContext.request.contextPath}/pages/mypages/js/bootstrap-paginator.js"></script>
 
 </body>
+
 </html>

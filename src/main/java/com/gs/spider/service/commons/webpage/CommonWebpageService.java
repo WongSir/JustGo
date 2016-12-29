@@ -78,10 +78,20 @@ public class CommonWebpageService {
      * @param page  页码
      * @return
      */
-    public ResultListBundle<Webpage> searchByQuery(String query, int size, int page) {
-        return bundleBuilder.listBundle(query, () -> commonWebpageDAO.searchByQuery(query, size, page));
+    public ResultListBundle<Webpage> searchByQueryAndPage(String query, int size, int page) {
+        return bundleBuilder.listBundle(query, () -> commonWebpageDAO.searchByQueryAndPage(query, size, page));
     }
 
+    /**
+     * 根据关键词搜索网页
+     * @param query 关键词
+     * @return
+     */
+    public ResultListBundle<Webpage> searchByQuery(String query) {
+        return bundleBuilder.listBundle(query, () -> commonWebpageDAO.searchByQuery(query));
+    }
+    
+    
     /**
      * 根据ES中的id获取网页
      *

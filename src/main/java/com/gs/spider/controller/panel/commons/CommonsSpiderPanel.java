@@ -56,7 +56,7 @@ public class CommonsSpiderPanel extends BaseController {
         modelAndView.addObject("page", page);
         modelAndView.addObject("domain", domain);
         if (StringUtils.isNotBlank(query)) {
-            modelAndView.addObject("resultBundle", commonWebpageService.searchByQuery(query, 10, page).getResultList());
+            modelAndView.addObject("resultBundle", commonWebpageService.searchByQueryAndPage(query, 10, page).getResultList());
         } else if (StringUtils.isNotBlank(domain)) {
             modelAndView.addObject("resultBundle", commonWebpageService.getWebpageByDomain(domain, 10, page).getResultList());
         } else {
@@ -70,8 +70,15 @@ public class CommonsSpiderPanel extends BaseController {
      * @return
      */
     @RequestMapping(value="listTest")
-    public ModelAndView listTest(){
+    public ModelAndView listTest(@RequestParam(required = false) String query,@RequestParam(defaultValue = "1", required = false) int page){
     	ModelAndView modelAndView = new ModelAndView("mypages/my/list");
+    	modelAndView.addObject("query", query);
+        modelAndView.addObject("page", page);
+        if (StringUtils.isNotBlank(query)) {  //根据关键词进行全文搜索
+            modelAndView.addObject("resultBundle", commonWebpageService.searchByQuery(query).getResultList());
+        } else { //根据页码查询数据
+            modelAndView.addObject("resultBundle", commonWebpageService.listAll(10, page).getResultList());
+        }
 		return modelAndView;
     }
 

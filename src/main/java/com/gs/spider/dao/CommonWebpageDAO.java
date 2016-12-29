@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.*;
 import com.gs.spider.model.async.Task;
+import com.gs.spider.model.commons.SpiderInfo;
 import com.gs.spider.model.commons.Webpage;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.MutablePair;
@@ -53,6 +54,7 @@ import static org.elasticsearch.index.query.QueryBuilders.moreLikeThisQuery;
 @Component
 public class CommonWebpageDAO extends IDAO<Webpage> {
     private final static String INDEX_NAME = "commons", TYPE_NAME = "webpage";
+    private final static String INDEX_NAME_SPIDER = "spiderinfo", TYPE_NAME_SPIDER = "spiderinfo";
     private static final int SCROLL_TIMEOUT = 1;
     private static final Gson gson = new GsonBuilder()
             .registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> new Date(json.getAsJsonPrimitive().getAsLong()))
@@ -194,7 +196,7 @@ public class CommonWebpageDAO extends IDAO<Webpage> {
      * @param page  页码
      * @return
      */
-    public List<Webpage> searchByQuery(String query, int size, int page) {
+    public List<Webpage> searchByQueryAndPage(String query, int size, int page) {
         SearchRequestBuilder searchRequestBuilder = client.prepareSearch(INDEX_NAME)
                 .setTypes(TYPE_NAME)
                 .setQuery(QueryBuilders.queryStringQuery(query).analyzer("query_ansj").defaultField("content"))  //设定“ansj分词器”、根据query的关键字在“content”中查询
@@ -202,7 +204,36 @@ public class CommonWebpageDAO extends IDAO<Webpage> {
         SearchResponse response = searchRequestBuilder.execute().actionGet();
         return warpHits2List(response.getHits());
     }
+    
+    /**
+     * 搜索es库中文章
+     * @param query 关键词
+     * @return
+     */
+    public List<Webpage> searchByQuery(String query) {
+        SearchRequestBuilder searchRequestBuilder = client.prepareSearch(INDEX_NAME)
+                .setTypes(TYPE_NAME)
+                .setQuery(QueryBuilders.queryStringQuery(query).analyzer("query_ansj").defaultField("content"));  //设定“ansj分词器”、根据query的关键字在“content”中查询
+        SearchResponse response = searchRequestBuilder.execute().actionGet();
+        return warpHits2List(response.getHits());
+    }
 
+    
+    //前缀查询用以查找 ”新闻来源“
+    /**
+     * 根据域名前缀查找网站名，以确定新闻来源
+     * @param query 
+     * @return
+     */
+    public SpiderInfo prefixQuery(String query){
+    	 SearchRequestBuilder searchRequestBuilder = client.prepareSearch(INDEX_NAME_SPIDER)
+                 .setTypes(TYPE_NAME_SPIDER)
+                 .setQuery(QueryBuilders.prefixQuery("domain",""));
+//    	responsebuilder.setQuery(QueryBuilders.prefixQuery("title", "mo"))
+		return null;
+    	
+    }
+    
     /**
      * 列出库中所有文章,并按照抓取时间排序
      *
