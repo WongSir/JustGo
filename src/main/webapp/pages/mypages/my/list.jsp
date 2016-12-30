@@ -75,87 +75,68 @@
 	<%@include file="head.jsp"%>
 
 	<div id="content">
-		<form class="form-inline" id="webpageForm"
-			action="${pageContext.request.contextPath}/panel/commons/listTest">
-			<div class="form-group">
-				<label for="query">关键词:</label> <input class="form-control"
-					id="query" name="query" value="${query}"> <input
-					class="form-control" type="number" style="display: none" id="page"
-					name="page" value="${page}">
-
-				<button type="submit" class="btn btn-primary" id="priceSubmit">搜索</button>
-				<button class="btn btn-primary" id="priceSubmit1"
-					onclick="changePage1()">上一页</button>
-				<button class="btn btn-primary" id="priceSubmit2"
-					onclick="changePage2()">下一页</button>
-			</div>
-
-		</form>
-
+		<%-- <div class="myform" >
+			<form class="form-inline" id="webpageForm"
+				action="${pageContext.request.contextPath}/panel/commons/listTest">
+				<div class="form-group">
+					<label for="query">关键词:</label> <input class="form-control"
+						id="query" name="query" value="${query}"> <input
+						class="form-control" type="number" style="display: none" id="page"
+						name="page" value="${page}">
+					<button type="submit" class="btn btn-primary" id="priceSubmit">搜索</button>
+					<button class="btn btn-primary" id="priceSubmit1"
+						onclick="changePage1()">上一页</button>
+					<button class="btn btn-primary" id="priceSubmit2"
+						onclick="changePage2()">下一页</button>
+				</div>
+			</form>
+		</div> --%>
+		<div class="mycontainer">
 		<div class="container">
-
 			<div id="main">
-
 				<div class="entry collapsible">
 					<c:forEach items="${resultBundle}" var="webpage" varStatus="index">
 						<div class="entry-header">
-
 							<img
 								src="${pageContext.request.contextPath}/pages/mypages/imgs/75x40.jpg"
 								width="75" height="40" alt="" class="entry-title-image">
-
 							<h2 class="title">${webpage.title }</h2>
-
 							<p class="meta">
 								抓取时间： <a href="#"><fmt:formatDate
 										value="${webpage.gathertime}" pattern="yyyy/MM/dd HH:mm:ss" /></a>
-								信息分类： <a href="#">${webpage.category }</a>
-								来源：<a href="#"></a>
+								信息分类： <a href="#">${webpage.category }</a> 来源：<a href="#"></a>
 							</p>
-
 							<a class="button news-trigger" href="#">Read More...</a>
-
 						</div>
 						<!-- end .entry-header -->
-
 						<div class="collapsible-content">
-
 							<div class="entry-content">
-
 								<dl>
 									<dt>原文链接:</dt>
 									<dd>
 										<a class="" href="${webpage.url}">${webpage.url}</a>
 									</dd>
 								</dl>
-
 								<p>${webpage.content }</p>
-
 							</div>
 							<!-- end .entry-content -->
-
 							<div class="box-footer">
-
 								<div class="align-left"></div>
 								<!-- end .align-left -->
-
 							</div>
 							<!-- end .box-footer -->
-
 						</div>
 						<!-- end .collapsible-content -->
 					</c:forEach>
 					</table>
 				</div>
 				<!-- end .entry -->
-
 			</div>
 			<!-- end #main -->
-
 			<div class="clear"></div>
-
 		</div>
 		<!-- end .container -->
+	</div>
 
 	</div>
 	<!-- end #content -->
