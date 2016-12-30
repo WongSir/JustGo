@@ -54,7 +54,7 @@ public class CommonsSpiderService extends AsyncGatherService {
             validateSpiderInfo(spiderInfo);
             String spiderInfoId = spiderInfoService.index(spiderInfo).getResult(); //获取创建index时ES自动生成的随机id作为模板列表spiderinfo的id
             spiderInfo.setId(spiderInfoId);
-            System.out.println("");
+            System.out.println("执行start，通过json校验");
         } else {
             //如果id不为空则更新这个id的爬虫模板
             spiderInfoService.update(spiderInfo);

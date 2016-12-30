@@ -55,11 +55,11 @@ public class CommonsSpiderController extends AsyncGatherBaseController {
      * 直接内部加载已设定好的爬虫模板
      * @return 任务id
      */
-    @RequestMapping(value = "startWithJsonFile", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
+    @RequestMapping(value = "crawl", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
     @ResponseBody
-    public ResultBundle<String> startWithJsonFile(){
+    public ResultBundle<String> crawl(@RequestParam(defaultValue = "1", required = false) int code){
     	SpiderTemplate spiderTemplate = new SpiderTemplate();
-    	String spiderInfoJson = spiderTemplate.jsonFileTemplate();
+    	String spiderInfoJson = spiderTemplate.jsonFileTemplate(code);
     	return spiderService.start(spiderInfoJson);
     }
 

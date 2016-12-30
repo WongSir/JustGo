@@ -1,4 +1,5 @@
 {
+  "id": "",
   "thread": "2",
   "retry": "2",
   "sleep": "800",
@@ -20,8 +21,8 @@
   "urlReg": "http://news.qq.com/a/\\d{8}/\\d+\\.htm",
   "charset": "",
   "publishTimeXPath": "",
-  "publishTimeReg": "<span class=\"article-time\">(.*?)</span>",
-  "publishTimeFormat": "yyyy-MM-dd hh:mm",
+  "publishTimeReg": "",
+  "publishTimeFormat": "",
   "authorReg": "",
   "authorXPath": "//h1/tidyText()",
   "lang": "",
@@ -29,6 +30,8 @@
   "callbackURL": [],
   "userAgent": "Mozilla/5.0 (Windows NT 5.2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.122 Safari/534.30",
   "doNLP": true,
+  "saveCapture": true,
+  "autoDetectPublishDate": true,
   "gatherFirstPage": false,
   "needTitle": false,
   "needContent": false,
@@ -41,5 +44,6 @@
       "name": "author",
       "need": false
     }
-  ]
+  ],
+  "staticFields": []
 }

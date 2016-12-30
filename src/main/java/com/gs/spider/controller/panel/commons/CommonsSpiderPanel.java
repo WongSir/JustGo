@@ -1,15 +1,7 @@
 package com.gs.spider.controller.panel.commons;
 
-import com.google.gson.Gson;
-import com.gs.spider.controller.BaseController;
-import com.gs.spider.model.async.State;
-import com.gs.spider.model.async.Task;
-import com.gs.spider.model.commons.SpiderInfo;
-import com.gs.spider.model.utils.ResultBundle;
-import com.gs.spider.model.utils.ResultListBundle;
-import com.gs.spider.service.commons.spider.CommonsSpiderService;
-import com.gs.spider.service.commons.spiderinfo.SpiderInfoService;
-import com.gs.spider.service.commons.webpage.CommonWebpageService;
+import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +13,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.stream.Collectors;
+import com.google.gson.Gson;
+import com.gs.spider.controller.BaseController;
+import com.gs.spider.model.async.State;
+import com.gs.spider.model.async.Task;
+import com.gs.spider.model.commons.SpiderInfo;
+import com.gs.spider.model.utils.ResultBundle;
+import com.gs.spider.model.utils.ResultListBundle;
+import com.gs.spider.service.commons.spider.CommonsSpiderService;
+import com.gs.spider.service.commons.spiderinfo.SpiderInfoService;
+import com.gs.spider.service.commons.webpage.CommonWebpageService;
+import com.gs.spider.utils.SpiderTemplate;
 
 /**
  * CommonsSpiderPanel
@@ -40,6 +42,8 @@ public class CommonsSpiderPanel extends BaseController {
     private CommonWebpageService commonWebpageService;
     @Autowired
     private SpiderInfoService spiderInfoService;
+  /*  @Autowired
+    private CommonsSpiderService spiderService;*/
 
     /**
      * 已抓取的网页列表
@@ -81,6 +85,17 @@ public class CommonsSpiderPanel extends BaseController {
         }
 		return modelAndView;
     }
+    
+    /**
+     * 爬虫入口
+     * @return
+     */
+    @RequestMapping(value="crawlingEntry")
+    public ModelAndView crawlingEntry(){
+		ModelAndView modelAndView = new ModelAndView("mypages/my/crawl");
+    	return modelAndView;
+    }
+    
 
     /**
      * 域名列表
