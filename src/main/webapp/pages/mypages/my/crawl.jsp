@@ -15,8 +15,10 @@
 <div class="">
 	<div class="main_crawl">
 		<div class="form-group">
-			<div class="input-group col-xs-6">
+			<div class="input-group col-xs-10">
+			<input type="text" name="num" id="num" class="form-control" placeholder="输入抓取数量（默认抓取30条）">
 				<div class="input-group-btn">
+				
 					<select name="type" class="form-control" id="selector" style="width: 500px;">
 						<option value="">请选择要crawl的网站</option>
 						<option value="1">腾讯网</option>
@@ -43,12 +45,15 @@
 	$("#search_submit").on('click',function(e){
 		e.preventDefault(); //取消默认事件。
 		var code=$("#selector").val();
-		alert("取得的code为：" +code);
-		crawl(code);
+		var count = $("#num").val();
+		if(count==""){
+			count=30;
+		}
+		crawl(code,count);
 	});
-	function crawl(code){
+	function crawl(code,count){
 		var url = "/spider/commons/spider/crawl";
-		$.post(url,{code:code},function(){
+		$.post(url,{code:code,count:count},function(){
 			/* var url ="/spider/pages/mypages/my/list.jsp"; */
 			var url ="${pageContext.request.contextPath}/panel/commons/listTest";
 			window.location.href = url;

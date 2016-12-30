@@ -71,9 +71,24 @@ public class CommonsSpiderService extends AsyncGatherService {
     public ResultBundle<String> start(String spiderInfoJson) {
         Preconditions.checkArgument(StringUtils.isNotBlank(spiderInfoJson), "爬虫配置模板为空");
         SpiderInfo spiderInfo = gson.fromJson(spiderInfoJson, SpiderInfo.class);
+        spiderInfo.setMaxPageGather(10);
         return start(spiderInfo);
     }
 
+    /**
+     * 通过读取模板启动爬虫
+     * @param spiderInfoJson 经gson解析后的json模板
+     * @param count 接收的前台传过来的抓取数量
+     * @return
+     */
+    public ResultBundle<String> startWithTemplate(String spiderInfoJson,int count) {
+        Preconditions.checkArgument(StringUtils.isNotBlank(spiderInfoJson), "爬虫配置模板为空");
+        SpiderInfo spiderInfo = gson.fromJson(spiderInfoJson, SpiderInfo.class);
+        spiderInfo.setMaxPageGather(count);
+        return start(spiderInfo);
+    }
+    
+    
     /**
      * 停止爬虫
      *

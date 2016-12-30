@@ -53,14 +53,16 @@ public class CommonsSpiderController extends AsyncGatherBaseController {
     /**
      * 启动爬虫
      * 直接内部加载已设定好的爬虫模板
-     * @return 任务id
+     * @param code 模板代码，用以区别加载哪个模板
+     * @param count 抓取数量，由用户输入
+     * @return
      */
     @RequestMapping(value = "crawl", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
     @ResponseBody
-    public ResultBundle<String> crawl(@RequestParam(defaultValue = "1", required = false) int code){
+    public ResultBundle<String> crawl(@RequestParam(defaultValue = "1", required = false) int code,@RequestParam(defaultValue = "30", required = false) int count){
     	SpiderTemplate spiderTemplate = new SpiderTemplate();
     	String spiderInfoJson = spiderTemplate.jsonFileTemplate(code);
-    	return spiderService.start(spiderInfoJson);
+    	return spiderService.startWithTemplate(spiderInfoJson,count);
     }
 
     /**

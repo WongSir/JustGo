@@ -2,11 +2,11 @@
 /*		my
 /* ---------------------------------------------------- */
 .main_crawl {
-  margin: 200px 100px 50px 100px;
+  margin: 200px 100px 50px 0px;
 }
 
 .homepage {
-	margin : 20px 0px 10px 900px;
+	margin : 20px 0px 10px 1020px;
 }
 
 .main_crawl a, .homepage a{
