@@ -2,186 +2,241 @@
 /*		my
 /* ---------------------------------------------------- */
 .main_crawl {
-  margin: 200px 100px 50px 0px;
+	margin: 200px 100px 50px 0px;
 }
 
 .homepage {
-	margin : 20px 0px 10px 1020px;
+	margin: 20px 0px 10px 1020px;
 }
 
-.main_crawl a, .homepage a{
+/* .main_crawl a, .homepage a{
 	color: #fcf8e3 !important;
+} */
+.myform {
+	margin: 0px 200px 0px 160px;
 }
 
-.myform{
-	margin : 0px 200px 0px 160px;
+.mycontainer {
+	/* margin : 1px 200px 0px 360px; */
+	width: 100%;
 }
 
-.mycontainer{
-	margin : 1px 200px 0px 330px;
+.detail_btn {
+	margin: 4px 0px 0px 220px;
+	/* margin:0 auto; */
 }
+
+.search_btn {
+	background-color: #5cb85c !important;
+	border-color: #4cae4c !important;
+	color: #FFF
+}
+
+.input-group-btn:last-child>.btn {
+	margin-left: 0px;
+}
+
+
+
 
 /* ---------------------------------------------------- */
 /*		Main
 /* ---------------------------------------------------- */
-
 #main {
-	float: left;
-	margin-right: 30px;
-	width: 700px;
+	/* float: left; */
+	/* margin-right: 30px; */
+	/* width: 615px; */
+	width: 100%;
 }
 
-	#main.fullwidth {
-		float: none;
-		margin-right: 0;
-		width: auto;
-	}
+#main.fullwidth {
+	float: none;
+	margin-right: 0;
+	width: auto;
+}
 
-	#main .button {
-		background: #f3f3f3 url(../imgs/button-bg.png) repeat-x;
-		border: 1px solid #e1dddd;
-		color: #797474;
-		font-weight: bold;
-		height: 36px;
-		padding: 7px 15px;
-		text-decoration: none !important;
-	}
-	
-		#main .button:hover { background: #f3f3f3 url(../imgs/button-bg-hover.png) repeat-x; }
+#main .button {
+	background: #f3f3f3 url(../imgs/button-bg.png) repeat-x;
+	border: 1px solid #e1dddd;
+	color: #797474;
+	font-weight: bold;
+	height: 36px;
+	padding: 7px 15px;
+	text-decoration: none !important;
+}
 
-	#main .entry {
-		background: #f8f7f6;
-		border: 1px solid #d8d8d8;
-		margin-bottom: 30px;
-		overflow:hidden;
-	}
-	
-		#main .entry-header {
-			border-bottom: 1px solid #e3e1d9;
-			overflow: hidden;
-			padding: 5px 20px 10px;
-			position: relative;
-		}
-	
-		#main .entry-footer {
-			border-top: 1px solid #e3e1d9;
-			overflow:hidden;
-			padding: 15px 20px;
-		}
-	
-			#main .entry-header a { text-decoration: none !important; }
-	
-				#main .entry-header a:hover { text-decoration: underline; }
-	
-			#main .entry-header .meta, #main .entry-header .title  {
-				float: left;
-				width: 540px;
-			}
-	
-			#main .entry-header .title {
-				letter-spacing: -0.2px;
-				margin: 0;
-			}
-	
-				#main .entry-header .title, #main .entry-header .title a { color: #4e4d4a; }
-	
-			#main .entry-header .meta { margin: 0 0 0 2px; }
-	
-				#main .entry-header .meta a {
-					text-decoration: none;
-				}
-	
-				#main .collapsible .entry-header .meta, #main .collapsible .entry-header .title { width: 435px; }
-	
-			#main .entry-header .button {
-				display: block;
-				padding: 7px 15px 13px;
-				position: absolute;
-				right: 20px;
-				top: 15px;
-			}
-	
-		#main .entry-content {
-			border-top: 1px solid #fff;
-			overflow: hidden;
-			padding: 15px 20px 15px;
-		}
-	
-			#main .entry-image, #main .entry-title-image, #main .gallery-image {
-				border: 4px solid #333;
-				float: left;
-				margin: 0 25px 0 0;
-			}
-	
-				#main .align-right .entry-image, #main .align-right.entry-image {
-					margin: 0 0 15px 15px;
-				}
-				#main .align-left .entry-image, #main .align-left.entry-image {
-					margin: 0 15px 15px 0;
-				}
-	
-				#main .collapsible .zoom.align-right a span, #main .collapsible .zoom.align-left a span { margin-bottom: 14px; }
-	
-			#main .entry-title-image { margin: 6px 20px 0 0; }
-	
-			#main .entry-content p { margin-bottom: 10px; }
-	
-				#main .single .entry-content p, #main .collapsible .entry-content p { margin-bottom: 15px; }
-	
-			#main .entry-links, #comments .comment-links {
-				list-style: none;
-				margin-top: -5px;
-			}
-	
-				#main .entry-links li, #comments .comment-links li {
-					float: left;
-					font-weight: bold;
-					margin: 0;
-				}
-	
-					#main .entry-links li a, #main .entry-links li .separator,
-					#comments .comment-links li a, #comments .comment-links  li .separator {
-						color: #878080;
-						text-decoration: none;
-					}
-	
-						#main .entry-links li a:hover, #comments .comment-links li a:hover {
-							color: #9c163e;
-							text-decoration: underline;
-						}
-	
-					#main .entry-links li .separator, #comments .comment-links li .separator { margin: 0 7px 0 4px; }
-	
+#main .button:hover {
+	background: #f3f3f3 url(../imgs/button-bg-hover.png) repeat-x;
+}
 
-.container {
+#main .entry {
+	/* background: #f8f7f6; */
+	border: 1px solid #d8d8d8;
+	margin-bottom: 30px;
+	overflow: hidden;
+}
+
+#main .entry-header {
+	border-bottom: 1px solid #e3e1d9;
+	overflow: hidden;
+	padding: 5px 20px 10px;
+	position: relative;
+}
+
+#main .entry-footer {
+	border-top: 1px solid #e3e1d9;
+	overflow: hidden;
+	padding: 15px 20px;
+}
+
+#main .entry-header a {
+	text-decoration: none !important;
+}
+
+#main .entry-header a:hover {
+	text-decoration: underline;
+}
+
+#main .entry-header .meta, #main .entry-header .title {
+	float: left;
+	width: 540px;
+}
+
+#main .entry-header .title {
+	letter-spacing: -0.2px;
+	margin: 0;
+}
+
+#main .entry-header .title, #main .entry-header .title a {
+	color: #4e4d4a;
+}
+
+#main .entry-header .meta {
+	margin: 0 0 0 2px;
+}
+
+#main .entry-header .meta a {
+	text-decoration: none;
+}
+
+#main .collapsible .entry-header .meta, #main .collapsible .entry-header .title
+	{
+	width: 435px;
+    
+}
+
+#main .collapsible .entry-header .title{
+	padding-left: 80px;
+}
+
+#main .entry-header .button {
+	display: block;
+	padding: 7px 15px 13px;
+	position: absolute;
+	right: 20px;
+	top: 15px;
+}
+
+#main .entry-content {
+	border-top: 1px solid #fff;
+	overflow: hidden;
+	padding: 15px 20px 15px;
+}
+
+#main .entry-image, #main .entry-title-image, #main .gallery-image {
+	border: 4px solid #333;
+	float: left;
+	margin: 0 25px 0 0;
+}
+
+#main .align-right .entry-image, #main .align-right.entry-image {
+	margin: 0 0 15px 15px;
+}
+
+#main .align-left .entry-image, #main .align-left.entry-image {
+	margin: 0 15px 15px 0;
+}
+
+#main .collapsible .zoom.align-right a span, #main .collapsible .zoom.align-left a span
+	{
+	margin-bottom: 14px;
+}
+
+#main .entry-title-image {
+	margin: 6px 20px 0 0;
+}
+
+#main .entry-content p {
+	margin-bottom: 10px;
+}
+
+#main .single .entry-content p, #main .collapsible .entry-content p {
+	margin-bottom: 15px;
+}
+
+#main .entry-links, #comments .comment-links {
+	list-style: none;
+	margin-top: -5px;
+}
+
+#main .entry-links li, #comments .comment-links li {
+	float: left;
+	font-weight: bold;
+	margin: 0;
+}
+
+#main .entry-links li a, #main .entry-links li .separator, #comments .comment-links li a,
+	#comments .comment-links  li .separator {
+	color: #878080;
+	text-decoration: none;
+}
+
+#main .entry-links li a:hover, #comments .comment-links li a:hover {
+	color: #9c163e;
+	text-decoration: underline;
+}
+
+#main .entry-links li .separator, #comments .comment-links li .separator
+	{
+	margin: 0 7px 0 4px;
+}
+
+/* .container {
 	margin: 0 auto;
 	position: relative;
 	width: 1030px;
-}
-
+} */
 .zoom a {
 	float: left;
 	position: relative;
 }
 
-	.zoom a span {
-		background: url(../img/enlarge-icon.png) no-repeat;
-		bottom: 7px;
-		display: none;
-		height: 47px;
-		margin: 0 25px 19px 0;
-		right: 7px;
-		position: absolute;
-		width: 57px;
-	}
+.zoom a span {
+	background: url(../img/enlarge-icon.png) no-repeat;
+	bottom: 7px;
+	display: none;
+	height: 47px;
+	margin: 0 25px 19px 0;
+	right: 7px;
+	position: absolute;
+	width: 57px;
+}
 
-		.zoom.align-right a span { margin: 0 0 19px 15px; }
-		.zoom.align-left a span { margin: 0 15px 19px 0; }
+.zoom.align-right a span {
+	margin: 0 0 19px 15px;
+}
 
+.zoom.align-left a span {
+	margin: 0 15px 19px 0;
+}
 
 /* ---------------------------------------------------- */
 /*		News
 /* ---------------------------------------------------- */
+#main .entry .collapsible-content {
+	position: relative !important;
+}
 
-#main .entry .collapsible-content { position: relative !important; }
-#main .button .collapse-arrow-up { margin-left: 8px; }
+#main .button .collapse-arrow-up {
+	margin-left: 8px;
+}

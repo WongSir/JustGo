@@ -214,7 +214,7 @@ $(document).ready(function(){
 			},
 			function() {
 				$(this).toggleClass("opened").parent().next().slideUp();
-				$(this).html('Read More...');
+				$(this).html('详情 1...');
 			}
 		);
 	});

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">	
+	    <title>H+ 后台主题UI框架 - Bootstrap Table</title>
+	    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+	    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+	    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+	    <link href="css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+	    <link href="css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+	    <link href="css/animate.min.css" rel="stylesheet">
+	    <style>
+	    	.paginationArea {
+				width: 100%; 
+				height: 40px;
+				padding: 4px 10px; 
+				background-color: white;
+				box-shadow: 0 1px 4px rgba(0,0,0,.3);
+			}
+			.pagination.deperate {
+				margin: 0;
+				margin-left: -5px;
+			}
+			.pagination.deperate > li.active > a,
+			.pagination.deperate > li.active > span {
+				color: white;
+				background-color: #B2011E;
+			}
+			.pagination.deperate > li.active > a:hover,
+			.pagination.deperate > li.active > span:hover {
+				border-color: #B2011E;
+			}
+			.pagination.deperate > li > a,
+			.pagination.deperate > li > span {
+				margin: 0 5px;
+				color: black;
+				padding-left: 10px;
+				padding-right: 10px;
+				line-height: 18px !important;
+				border: 1px solid #DDDDDD;
+			}
+			.pagination.deperate > li:first-child > a,
+			.pagination.deperate > li:first-child > span,
+			.pagination.deperate > li:last-child > a,
+			.pagination.deperate > li:last-child > span {
+				border-radius: 0px;
+			}
+	    </style>
+	</head>
+	<body style="padding: 0 10px;">
+		<h3 style="border-left: 2px solid #5A87CA;">&nbsp;学员约考管理</h3>
+		<table id="table" data-show-columns="true" data-height="300"></table>
+		<div class="paginationArea">
+			<ul class="pagination deperate">
+				<li class="disabled"><span><i class="fa fa-angle-double-left"></i></span></li>
+				<li class="active"><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li class="disabled"><span>...</span></li>
+				<li><a href="#">8</a></li>
+				<li><a href="#">9</a></li>
+				<li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+			</ul>
+		</div>
+	</body>
+	<script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <script src="js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script>
+    	function buildTable($el, cells, rows) {
+		    var i, j, row,
+		        columns = [],
+		        data = [],
+		        columnNames = [
+		        	"序号", "全国统一编码", "学员姓名", "性别", "证件号码", "所属分校",
+		        	"科目", "培训类型", "报名时间", "约考时间", "约考状态", "操作"
+		        ],
+		        dataStatic = [
+		        	[
+		        		1, "暂无", "测试", "男", "522635198708184662", "广州市真北机动车培训机构", "科目一", "B2", "2016-06-02", "2016-06-24 00:00:00", "已约考", 
+		        		'<a style="margin-right:4px" title="预约考试" href="javascript:void(0);" ><i class="menu-icon fa fa-table "></i></a>'
+		        	],
+		        	[
+		        		2, "4814196222126833", "方胜鑫", "男", "450304198312052515", "广州市真北机动车培训机构", "科目一", "C1", "2016-05-02", "2016-06-07 00:00:00", "已约考", 
+		        		'<a style="margin-right:4px" title="预约考试" href="javascript:void(0);" ><i class="menu-icon fa fa-table "></i></a>'
+		        	]
+		        ];
+		
+		    for (i = 0; i < cells; i++) {
+		        columns.push({
+		            field: 'field' + i,
+		            title: columnNames[i]
+		        });
+		    }
+		    for (i = 0; i < dataStatic.length; i++) {
+		        row = {};
+		        for (j = 0; j < cells; j++) {
+		            row['field' + j] = dataStatic[i][j];
+		        }
+		        data.push(row);
+		    }
+		    $el.bootstrapTable('destroy').bootstrapTable({
+		        columns: columns,
+		        data: data,
+		        pagination: true
+		    });
+		}
+		
+		$(function () {
+		    buildTable($('#table'), 12, 2);
+		});
+    </script>
+</html>

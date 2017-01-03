@@ -9,6 +9,11 @@
 <%@include file="header.jsp"%>
 
 <link href="${pageContext.request.contextPath}/pages/mypages/css2/my.css" rel="stylesheet" type='text/css' />
+
+<!-- 引入新的样式元素 js3 css3-->
+<link href="${pageContext.request.contextPath}/pages/mypages/css3/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/pages/mypages/css3/style.min862f.css?v=4.1.0" rel="stylesheet">
+
 </head>
 
 <body>
@@ -29,15 +34,22 @@
 				</div>
 				<!-- <input type="text" name="keyword" id="keyword" class="form-control" placeholder="请您输入关键词"> -->
 				<span class="input-group-btn">
-					<button class="btn btn-success" id="search_submit" type="submit" style="width: 80px;"><a href="${pageContext.request.contextPath}/commons/spider/crawl">Go</a></button>
+				 	<%-- <button class="btn btn-success" id="search_submit"  style="width: 80px;"><a href="${pageContext.request.contextPath}/commons/spider/crawl">Gosd</a></button> --%>
+					<a id="search_submit" class="btn btn-outline btn-primary " style="width: 80px;" href="${pageContext.request.contextPath}/commons/spider/crawl">Go</a>
 				</span>
 			</div>
 		</div>
 	</div>
-	<div class="">
-		<button id="fat-btn" class="btn btn-primary homepage" type="button"> <a href="${pageContext.request.contextPath}/panel/commons/listTest?page=1">返回首页</a>
-	</div>
+	<%-- <div class="">
+		<button id="fat-btn" class="btn btn-primary homepage" type="button"> <a href="${pageContext.request.contextPath}/panel/commons/newsList?page=1">返回首页</a>
+	</div> --%>
 </div>
+
+	<div class="gohome">
+		<a class="animated bounceInUp" href="${pageContext.request.contextPath}/panel/commons/newsList?page=1" title="返回首页"><i
+			class="fa fa-home"></i></a>
+	</div>
+
 </body>
 
 <script type="text/javascript">
@@ -55,7 +67,7 @@
 		var url = "/spider/commons/spider/crawl";
 		$.post(url,{code:code,count:count},function(){
 			/* var url ="/spider/pages/mypages/my/list.jsp"; */
-			var url ="${pageContext.request.contextPath}/panel/commons/listTest";
+			var url ="${pageContext.request.contextPath}/panel/commons/newsList";
 			window.location.href = url;
 		});
 	}

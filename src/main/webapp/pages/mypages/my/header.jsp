@@ -31,12 +31,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="${pageContext.request.contextPath}/pages/mypages/js/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/pages/mypages/js/bootstrap.js"></script>
 
-<!-- 自己的cs和js文件 -->
-
-<!-- css2 -->
-
-
-<!-- js2 -->
+<!-- 引入新的样式元素 js3 css3 -->
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/pages/mypages/imgs/favicon.ico">
 
 
 

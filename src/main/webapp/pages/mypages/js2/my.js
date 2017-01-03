@@ -6,11 +6,11 @@ $(document).ready(function(){
 		$('.news-trigger').toggle(
 			function() {
 				$(this).toggleClass("opened").parent().next().slideDown();
-				$(this).html('Collapse <img src="/spider/pages/mypages/imgs/button-arrow-up.png" alt="" class="collapse-arrow-up">');
+				$(this).html('收起详情');
 			},
 			function() {
 				$(this).toggleClass("opened").parent().next().slideUp();
-				$(this).html('Read More...');
+				$(this).html('详情 ');
 			}
 		);
 	});
