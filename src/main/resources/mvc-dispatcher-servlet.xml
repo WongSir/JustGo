@@ -23,7 +23,10 @@
     <mvc:resources location="/pages/mypages/css/" mapping="/pages/mypages/css/**" cache-period="2592000"/>
     <mvc:resources location="/pages/mypages/js2/" mapping="/pages/mypages/js2/**" cache-period="2592000"/>
     <mvc:resources location="/pages/mypages/css2/" mapping="/pages/mypages/css2/**" cache-period="2592000"/>
+    <mvc:resources location="/pages/mypages/js3/" mapping="/pages/mypages/js3/**" cache-period="2592000"/>
+    <mvc:resources location="/pages/mypages/css3/" mapping="/pages/mypages/css3/**" cache-period="2592000"/>
     <mvc:resources location="/pages/mypages/imgs/" mapping="/pages/mypages/imgs/**" cache-period="2592000"/>
+    <mvc:resources location="/pages/mypages/fonts/" mapping="/pages/mypages/fonts/**" cache-period="2592000"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/pages/"/>

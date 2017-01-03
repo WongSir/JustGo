@@ -73,8 +73,8 @@ public class CommonsSpiderPanel extends BaseController {
      * 资讯列表页
      * @return
      */
-    @RequestMapping(value="listTest")
-    public ModelAndView listTest(@RequestParam(required = false) String query,@RequestParam(defaultValue = "1", required = false) int page){
+    @RequestMapping(value="newsList")
+    public ModelAndView newsList(@RequestParam(required = false) String query,@RequestParam(defaultValue = "1", required = false) int page){
     	ModelAndView modelAndView = new ModelAndView("mypages/my/list");
     	modelAndView.addObject("query", query);
         modelAndView.addObject("page", page);
@@ -96,6 +96,25 @@ public class CommonsSpiderPanel extends BaseController {
     	return modelAndView;
     }
     
+    /**
+     * 网站列表
+     * @return
+     */
+    @RequestMapping(value="siteList")
+    public ModelAndView siteList(){
+		ModelAndView modelAndView = new ModelAndView("mypages/my/siteList");
+    	return modelAndView;
+    }
+    
+    /**
+     * 模板列表
+     * @return
+     */
+    @RequestMapping(value="templateList")
+    public ModelAndView templateList(){
+    	ModelAndView modelAndView = new ModelAndView("mypages/my/templateList");
+    	return modelAndView;
+    }
 
     /**
      * 域名列表
