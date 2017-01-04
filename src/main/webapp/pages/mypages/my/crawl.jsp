@@ -65,9 +65,29 @@
 	});
 	function crawl(code,count){
 		var url = "/spider/commons/spider/crawl";
-		$.post(url,{code:code,count:count},function(){
+		
+		 $("#confirmModalTitle").text("正在抓取");
+         $("#confirmModalBody").html("正在抓取,请稍后");
+         $('#confirmModal').modal({
+             keyboard: false,
+             backdrop: "static"
+         });
+		$.post(url,{code:code,count:count},function(data){
 			/* var url ="/spider/pages/mypages/my/list.jsp"; */
-			var url ="${pageContext.request.contextPath}/panel/commons/newsList";
+			
+			$("#webpageTableBody").html("");
+             var modalBody = $("#confirmModalBody");
+             var modalTitle = $("#confirmModalTitle");
+             if (data.count <= 0) {
+                 modalTitle.text("错误!");
+                 modalBody.html("无法获取数据,请检查模板参数");
+                 return;
+             }
+             modalTitle.text("成功!");
+             modalBody.html("已抓取数据,正在渲染,请稍后");
+             setTimeout("$('#confirmModal').modal('hide')", 2000);
+             
+			var url ="${pageContext.request.contextPath}/panel/commons/newsList?page=1";
 			window.location.href = url;
 		});
 	}

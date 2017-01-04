@@ -105,12 +105,10 @@
 						<div class="collapsible-content">
 							<div class="entry-content">
 								<dl>
-									<dt>原文链接:</dt>
-									<dd>
-										<a class="" href="${webpage.url}">${webpage.url}</a>
-									</dd>
+									<dt>原文链接: <a class="" href="${webpage.url}">${webpage.url}</a></dt>
 								</dl>
-								<p>${webpage.content }</p>
+								<p class="webcontent">${webpage.title }</p>
+								<p class="webcontent">${webpage.content }</p>
 							</div>
 							<!-- end .entry-content -->
 							<div class="box-footer">

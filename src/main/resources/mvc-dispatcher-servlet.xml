@@ -32,7 +32,7 @@
         <property name="prefix" value="/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-    <bean class="com.gs.spider.gather.commons.CommonSpider" name="commonSpider">
+    <bean class="com.wongsir.newsgathering.gather.commons.CommonSpider" name="commonSpider">
         <constructor-arg name="staticValue" ref="staticValue"/>
         <constructor-arg name="taskManager" ref="taskManager"/>
         <property name="commonWebpageDAO" ref="commonWebpageDAO"/>
@@ -61,6 +61,6 @@
     </bean>
     
     <!-- 自动扫描该包下的所有文件 -->
-    <context:component-scan base-package="com.gs.spider.**"/>
+    <context:component-scan base-package="com.wongsir.newsgathering.**"/>
     
 </beans>
