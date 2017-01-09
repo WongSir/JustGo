@@ -1,5 +1,9 @@
 package com.wongsir.newsgathering.controller.panle.commons;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -18,6 +22,7 @@ import com.wongsir.newsgathering.controller.BaseController;
 import com.wongsir.newsgathering.model.async.State;
 import com.wongsir.newsgathering.model.async.Task;
 import com.wongsir.newsgathering.model.commons.SpiderInfo;
+import com.wongsir.newsgathering.model.commons.Webpage;
 import com.wongsir.newsgathering.model.utils.ResultBundle;
 import com.wongsir.newsgathering.model.utils.ResultListBundle;
 import com.wongsir.newsgathering.service.commons.spider.CommonsSpiderService;
@@ -77,8 +82,12 @@ public class CommonsSpiderPanel extends BaseController {
     	ModelAndView modelAndView = new ModelAndView("mypages/my/list");
     	modelAndView.addObject("query", query);
         modelAndView.addObject("page", page);
+        Collection<Webpage> result = new ArrayList<Webpage>();
         if (StringUtils.isNotBlank(query)) {  //根据关键词进行全文搜索
-            modelAndView.addObject("resultBundle", commonWebpageService.searchByQuery(query).getResultList());
+//        	result = commonWebpageService.searchByQuery(query).getResultList();
+//        	for(Iterator<Webpage> iter  = result.iterator();iter.hasNext();){
+//        	}
+            modelAndView.addObject("resultBundle",commonWebpageService.searchByQuery(query).getResultList() );
         } else { //根据页码查询数据
             modelAndView.addObject("resultBundle", commonWebpageService.listAll(10, page).getResultList());
         }
@@ -229,7 +238,7 @@ public class CommonsSpiderPanel extends BaseController {
 
     @RequestMapping(value = "updateBySpiderInfoID", method = {RequestMethod.GET})
     public ModelAndView updateBySpiderInfoID(@RequestParam(required = false, defaultValue = "") String spiderInfoIdUpdateBy, @RequestParam(required = false, defaultValue = "") String spiderInfoJson) {
-        ModelAndView modelAndView = new ModelAndView("panel/commons/updateBySpiderInfoID");
+        ModelAndView modelAndView = new ModelAndView("panel/commons/ updateBySpiderInfoID");
         modelAndView.addObject("spiderInfoJson", spiderInfoJson);
         modelAndView.addObject("spiderInfoIdUpdateBy", spiderInfoIdUpdateBy);
         return modelAndView;

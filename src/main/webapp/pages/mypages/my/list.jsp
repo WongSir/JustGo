@@ -80,7 +80,29 @@
 </head>
 <body>
 	<%@include file="head.jsp"%>
-
+	
+	<div class="navigation">
+				<nav class="navbar navbar-default" role="navigation">
+				
+		   <div class="myform" >
+			<form class="form-inline" id="webpageForm"
+				action="${pageContext.request.contextPath}/panel/commons/newsList">
+				<div class="form-group">
+					<label for="query">关键词:</label> <input class="form-control"
+						id="query" name="query" value="${query}"> <input
+						class="form-control" type="number" style="display: none" id="page"
+						name="page" value="${page}">
+					<button type="submit" class="btn btn-outline btn-primary" id="priceSubmit">搜索</button>
+					<button class="btn btn-outline btn-primary" id="priceSubmit1"
+						onclick="changePage1()">上一页</button>
+					<button class="btn btn-outline btn-primary" id="priceSubmit2"
+						onclick="changePage2()">下一页</button>
+				</div>
+			</form>
+		</div>
+			</div>
+		</nav>
+	
 	<div id="content">
 		<div class="mycontainer">
 		<!-- <div class="container"> -->
@@ -95,7 +117,7 @@
 							<p class="meta">
 								抓取时间： <a href="#"><fmt:formatDate
 										value="${webpage.gathertime}" pattern="yyyy/MM/dd HH:mm:ss" /></a>
-								信息分类： <a href="#">${webpage.category }</a>&nbsp; 来源：<a href="#"></a>
+								信息分类： <a href="#" id="newsCategory">${webpage.category }</a>&nbsp; 来源：<a id="fromWhere" href="#"></a>
 							</p>
 							<!-- <a class="button news-trigger " href="#">详情</a> -->
 							<a class="btn btn-outline btn-primary news-trigger detail_btn" href="#">详情</a>

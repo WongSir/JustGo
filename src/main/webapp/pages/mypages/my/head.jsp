@@ -22,7 +22,13 @@
 			<div class="logo text-center">
 				<a href="/spider/pages/mypages/my/crawl.jsp"><img src="${pageContext.request.contextPath}/pages/mypages/imgs/logo.jpg" alt="" /></a>
 			</div>
-			<div class="navigation">
+			
+			<!-- 信息分类 -->
+		<div class="category">
+			
+		</div>
+
+		<%-- <div class="navigation">
 				<nav class="navbar navbar-default" role="navigation">
 				
 		   <div class="myform" >
@@ -43,6 +49,6 @@
 		</div>
 			</div>
 		</nav>
-		</div>
+		</div> --%>
 	</div>
 	<!-- header-section-ends-here -->
