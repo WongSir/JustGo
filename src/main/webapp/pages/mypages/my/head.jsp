@@ -7,9 +7,11 @@
 				<div class="top-menu">
 					<ul>
 						<li><a href="${pageContext.request.contextPath}/panel/commons/newsList">首页</a></li>
-						<li><a href="${pageContext.request.contextPath}/panel/commons/crawlingEntry">入口</a></li>
 						<li><a href="${pageContext.request.contextPath}/panel/commons/siteList">网站列表</a></li>
 						<li><a href="${pageContext.request.contextPath}/panel/commons/templateList">模板列表</a></li>
+						<li><a href="${pageContext.request.contextPath}/panel/commons/crawlingEntry">快速入口</a></li>
+						<li><a href="#">高级配置</a></li>
+						<li><a href="#">高级搜索</a></li>
 					</ul>
 				</div>
 				<div class="num">
@@ -22,7 +24,7 @@
 			<div class="logo text-center">
 				<a href="/spider/pages/mypages/my/crawl.jsp"><img src="${pageContext.request.contextPath}/pages/mypages/imgs/logo.jpg" alt="" /></a>
 			</div>
-			
+		</div>	
 			<!-- 信息分类 -->
 		<div class="category">
 			

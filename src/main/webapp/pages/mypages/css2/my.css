@@ -45,7 +45,13 @@
 	float:left;
 }
 
+.my-a-color a{
+	color: #1ab394 !important;
+}
 
+a.hover-color:hover{
+	color: #FFF !important;
+}
 
 
 /* ---------------------------------------------------- */

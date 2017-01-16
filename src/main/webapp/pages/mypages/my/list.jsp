@@ -38,11 +38,26 @@
 </script> -->
 
 <script type="text/javascript">
+	function changeDomain() {
+		var tmp = $('#fromWhere').text();
+		if (tmp == "www.chinanews.com") {
+			$('#fromWhere').html("中新网");
+		} else if (tmp == "sh.qihoo.com") {
+			$('#fromWhere').html("360搜索");
+		}
+		/* alert(tmp); */
+	}
+	window.onload = changeDomain;
+</script>
+
+<script type="text/javascript">
 	var mpage = 1;
-	  function UrlValue(name) { //获取页面URL地址参数方法
-	        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); //声明正则表达式
-	        var r = window.location.search.trim().substr(1).match(reg); //用正则表达式匹配URL地址参数
-	        if (r != null) return decodeURI(r[2]); return null; //如果匹配到参数，返回参数结果，如果没有匹配到，返回null
+	function UrlValue(name) { //获取页面URL地址参数方法
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); //声明正则表达式
+		var r = window.location.search.trim().substr(1).match(reg); //用正则表达式匹配URL地址参数
+		if (r != null)
+			return decodeURI(r[2]);
+		return null; //如果匹配到参数，返回参数结果，如果没有匹配到，返回null
 	}
 	function changePage1() {
 		/* var currentPage = +$("#page").val(); //取得当前页 */
@@ -58,7 +73,7 @@
 	}
 	function changePage2() {
 		var currentPage = UrlValue("page"); //取得当前页
-		mpage = + currentPage + 1;
+		mpage = +currentPage + 1;
 		$("#page").val(mpage);
 		$("#webpageForm").submit();
 	}
@@ -80,32 +95,70 @@
 </head>
 <body>
 	<%@include file="head.jsp"%>
-	
+
 	<div class="navigation">
-				<nav class="navbar navbar-default" role="navigation">
-				
-		   <div class="myform" >
-			<form class="form-inline" id="webpageForm"
-				action="${pageContext.request.contextPath}/panel/commons/newsList">
-				<div class="form-group">
-					<label for="query">关键词:</label> <input class="form-control"
-						id="query" name="query" value="${query}"> <input
-						class="form-control" type="number" style="display: none" id="page"
-						name="page" value="${page}">
-					<button type="submit" class="btn btn-outline btn-primary" id="priceSubmit">搜索</button>
-					<button class="btn btn-outline btn-primary" id="priceSubmit1"
-						onclick="changePage1()">上一页</button>
-					<button class="btn btn-outline btn-primary" id="priceSubmit2"
-						onclick="changePage2()">下一页</button>
-				</div>
-			</form>
-		</div>
+		<nav class="navbar navbar-default" role="navigation">
+
+			<div class="myform">
+				<form class="form-inline" id="webpageForm"
+					action="${pageContext.request.contextPath}/panel/commons/newsList">
+					<div class="form-group">
+						<label for="query">全文检索:</label>
+						<input class="form-control" placeholder="请输入关键字" id="query" name="query" value="${query}"> 
+						<input class="form-control" type="number" style="display: none" id="page" name="page" value="${page}"> 
+						<!-- <label for="domain">域名:</label>  --><input type="hidden" class="form-control" id="domain" name="domain" value="${domain}">
+						<button type="submit" class="btn btn-outline btn-primary"
+							id="priceSubmit">搜索</button>
+						<!-- <button class="btn btn-outline btn-primary" id="priceSubmit1"
+							onclick="changePage1()">上一页</button>
+						<button class="btn btn-outline btn-primary" id="priceSubmit2"
+							onclick="changePage2()">下一页</button> -->
+						<c:if test="${page == 1}">
+							<li class="btn btn-outline btn-primary disabled my-a-color"><a href="#">上一页</a></li>
+						</c:if>
+						<c:if test="${page > 1}">
+							<li class="btn btn-outline btn-primary my-a-color">
+							<a class="hover-color" href="?query=${query}&page=${page-1}&domain=${domain}">上一页</a>
+							</li>
+						</c:if>
+						<c:if test="${resultBundle.size() < 10}">
+							<li class="btn btn-outline btn-primary disabled my-a-color"><a href="#">下一页</a></li>
+						</c:if>
+						<c:if test="${resultBundle.size() == 10}">
+							<li class="btn btn-outline btn-primary my-a-color"><a href="?query=${query}&page=${page+1}&domain=${domain}">下一页</a></li>
+						</c:if>
+					</div>
+					<%-- <div class="row">
+						<nav>
+							<ul class="pager">
+								<c:if test="${page == 1}">
+									<li class="pager-prev disabled"><a href="#">上一页</a></li>
+								</c:if>
+								<c:if test="${page > 1}">
+									<li class="pager-prev"><a
+										href="?query=${query}&page=${page-1}&domain=${domain}">上一页</a></li>
+								</c:if>
+								<c:if test="${resultBundle.size() < 10}">
+									<li class="pager-next disabled"><a href="#">下一页</a></li>
+								</c:if>
+								<c:if test="${resultBundle.size() == 10}">
+									<li class="pager-next"><a
+										href="?query=${query}&page=${page+1}&domain=${domain}">下一页</a></li>
+								</c:if>
+							</ul>
+						</nav>
+					</div> --%>
+				</form>
 			</div>
-		</nav>
+			
+			
+		</nav> 
+	</div>
 	
+
 	<div id="content">
 		<div class="mycontainer">
-		<!-- <div class="container"> -->
+			<!-- <div class="container"> -->
 			<div id="main">
 				<div class="entry collapsible">
 					<c:forEach items="${resultBundle}" var="webpage" varStatus="index">
@@ -117,17 +170,21 @@
 							<p class="meta">
 								抓取时间： <a href="#"><fmt:formatDate
 										value="${webpage.gathertime}" pattern="yyyy/MM/dd HH:mm:ss" /></a>
-								信息分类： <a href="#" id="newsCategory">${webpage.category }</a>&nbsp; 来源：<a id="fromWhere" href="#"></a>
+								信息分类： <a href="#" id="newsCategory">${webpage.category }</a>&nbsp;
+								来源：<a id="fromWhere" href="${webpage.domain}">${webpage.domain}</a>
 							</p>
 							<!-- <a class="button news-trigger " href="#">详情</a> -->
-							<a class="btn btn-outline btn-primary news-trigger detail_btn" href="#">详情</a>
-							 <!-- <button type="button" class="btn btn-outline btn-primary">主要</button> -->
+							<a class="btn btn-outline btn-primary news-trigger detail_btn"
+								href="#">详情</a>
+							<!-- <button type="button" class="btn btn-outline btn-primary">主要</button> -->
 						</div>
 						<!-- end .entry-header -->
 						<div class="collapsible-content">
 							<div class="entry-content">
 								<dl>
-									<dt>原文链接: <a class="" href="${webpage.url}">${webpage.url}</a></dt>
+									<dt>
+										原文链接: <a class="" href="${webpage.url}">${webpage.url}</a>
+									</dt>
 								</dl>
 								<p class="webcontent">${webpage.title }</p>
 								<p class="webcontent">${webpage.content }</p>
@@ -141,25 +198,25 @@
 						</div>
 						<!-- end .collapsible-content -->
 					</c:forEach>
-					</table>
+					<!-- </table> -->
 				</div>
 				<!-- end .entry -->
 			</div>
 			<!-- end #main -->
 			<div class="clear"></div>
-		<!-- </div> -->
-		<!-- end .container -->
-	</div>
+			<!-- </div> -->
+			<!-- end .container -->
+		</div>
 	</div>
 	<!-- end #content -->
 
-<script src="${pageContext.request.contextPath}/pages/mypages/js2/jquery.min.js"></script>
-<%-- <script src="${pageContext.request.contextPath}/pages/mypages/js2/jquery.cycle.all.min.js"></script>
+	<script src="${pageContext.request.contextPath}/pages/mypages/js2/jquery.min.js"></script>
+	<%-- <script src="${pageContext.request.contextPath}/pages/mypages/js2/jquery.cycle.all.min.js"></script>
 <script src="${pageContext.request.contextPath}/pages/mypages/js2/jquery.easing.1.3.js"></script>
 <script src="${pageContext.request.contextPath}/pages/mypages/js2/organictabs.jquery.js"></script>
 <script src="${pageContext.request.contextPath}/pages/mypages/js2/jquery.fancybox-1.3.4.pack.js"></script>
 <script src="${pageContext.request.contextPath}/pages/mypages/js2/css3-mediaqueries.js"></script> --%>
-<script src="${pageContext.request.contextPath}/pages/mypages/js2/my.js"></script>
+	<script src="${pageContext.request.contextPath}/pages/mypages/js2/my.js"></script>
 
 </body>
 
