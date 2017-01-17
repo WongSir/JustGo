@@ -31,7 +31,7 @@
                     <%--<td></td>--%>
                 <td>
                     <a class="btn btn-outline btn-primary"
-                       href="${pageContext.request.contextPath}/panel/commons/editSpiderInfoById?spiderInfoId=${template.id}">编辑</a>
+                       href="${pageContext.request.contextPath}/panel/commons/editConfigById?spiderInfoId=${template.id}">编辑</a>
                 </td>
                 <td>
                     <button onclick="rpcAndShowData('${pageContext.request.contextPath}/commons/spiderinfo/deleteById',{id:'${template.id}'})"

@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
 /* News Toggler */
 	$(function(){
 		$(".collapsible-content").hide();
@@ -29,5 +28,7 @@ $(document).ready(function(){
 	/* End Zoom Icon */
 	
 });
+
+
 
 

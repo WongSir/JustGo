@@ -436,4 +436,31 @@ public class CommonWebpageDAO extends IDAO<Webpage> {
     public boolean deleteByDomain(String domain, Task task) {
         return deleteByQuery(QueryBuilders.matchQuery("domain", domain), task);
     }
+    
+    
+    /**
+     * 获取query的关联信息
+     *
+     * @param query 查询queryString
+     * @param size  结果集数量
+     * @return 相关信息
+     */
+    public Pair<Map<String, List<Terms.Bucket>>, List<Webpage>> relatedInfo(String query, int size) {
+        SearchRequestBuilder searchRequestBuilder = client.prepareSearch(INDEX_NAME)
+                .setTypes(TYPE_NAME)
+                .setQuery(QueryBuilders.queryStringQuery(query))
+                .addSort("gatherTime", SortOrder.DESC)
+                .addAggregation(AggregationBuilders.terms("relatedPeople").field("namedEntity.nr"))
+                .addAggregation(AggregationBuilders.terms("relatedLocation").field("namedEntity.ns"))
+                .addAggregation(AggregationBuilders.terms("relatedInstitution").field("namedEntity.nt"))
+                .addAggregation(AggregationBuilders.terms("relatedKeywords").field("keywords"))
+                .setSize(size);
+        SearchResponse response = searchRequestBuilder.execute().actionGet();
+        Map<String, List<Terms.Bucket>> info = Maps.newHashMap();
+        info.put("relatedPeople", ((Terms) response.getAggregations().get("relatedPeople")).getBuckets());
+        info.put("relatedLocation", ((Terms) response.getAggregations().get("relatedLocation")).getBuckets());
+        info.put("relatedInstitution", ((Terms) response.getAggregations().get("relatedInstitution")).getBuckets());
+        info.put("relatedKeywords", ((Terms) response.getAggregations().get("relatedKeywords")).getBuckets());
+        return Pair.of(info, warpHits2List(response.getHits()));
+    }
 }

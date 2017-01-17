@@ -1,15 +1,15 @@
 package com.wongsir.newsgathering.controller.panle.commons;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.ListIterator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,16 +90,13 @@ public class CommonsSpiderPanel extends BaseController {
 	public ModelAndView newsList(@RequestParam(required = false) String query,
 			@RequestParam(required = false) String domain,
 			@RequestParam(defaultValue = "1", required = false) int page) {
-		ModelAndView modelAndView = new ModelAndView("mypages/my/list");
+		ModelAndView modelAndView = new ModelAndView("mypages/my/newsList");
+//		ModelAndView modelAndView = new ModelAndView("mypages/my/list");
 		modelAndView.addObject("query", query);
 		modelAndView.addObject("page", page);
 		modelAndView.addObject("domain", domain);
-		Collection<Webpage> result = new ArrayList<Webpage>();
+//		Collection<Webpage> result = new ArrayList<Webpage>();
 		if (StringUtils.isNotBlank(query)) { // 根据关键词进行全文搜索
-			// result =
-			// commonWebpageService.searchByQuery(query).getResultList();
-			// for(Iterator<Webpage> iter = result.iterator();iter.hasNext();){
-			// }
 			modelAndView.addObject("resultBundle", commonWebpageService.searchByQuery(query).getResultList());
 		} else if (StringUtils.isNotBlank(domain)) {
 			modelAndView.addObject("resultBundle",
@@ -135,13 +132,70 @@ public class CommonsSpiderPanel extends BaseController {
 	
 	/**
 	 * 高级配置
-	 * @param jsonSpiderInfo
+	 * @param jsonSpiderInfo json格式的爬虫模板
 	 * @return
 	 */
-	@RequestMapping(value="advanceConfig")
+	@RequestMapping(value="advanceConfig", method = {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView advanceConfig(String jsonSpiderInfo){
-		return null;
-		
+		ModelAndView modelAndView = new ModelAndView("mypages/my/advanceConfig");
+		if (StringUtils.isNotBlank(jsonSpiderInfo)) {
+            SpiderInfo spiderInfo = gson.fromJson(jsonSpiderInfo, SpiderInfo.class);
+            //对可能含有html的字段进行转义
+            spiderInfo.setPublishTimeReg(StringEscapeUtils.escapeHtml4(spiderInfo.getPublishTimeReg()));
+            spiderInfo.setCategoryReg(StringEscapeUtils.escapeHtml4(spiderInfo.getCategoryReg()));
+            spiderInfo.setContentReg(StringEscapeUtils.escapeHtml4(spiderInfo.getContentReg()));
+            spiderInfo.setTitleReg(StringEscapeUtils.escapeHtml4(spiderInfo.getTitleReg()));
+            spiderInfo.setPublishTimeXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getPublishTimeXPath()));
+            spiderInfo.setCategoryXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getCategoryXPath()));
+            spiderInfo.setContentXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getContentXPath()));
+            spiderInfo.setTitleXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getTitleXPath()));
+            for (SpiderInfo.FieldConfig config : spiderInfo.getDynamicFields()) {
+                config.setRegex(StringEscapeUtils.escapeHtml4(config.getRegex()));
+                config.setXpath(StringEscapeUtils.escapeHtml4(config.getXpath()));
+            }
+            modelAndView.addObject("spiderInfo", spiderInfo);
+            modelAndView.addObject("jsonSpiderInfo", jsonSpiderInfo);
+        } else {
+            modelAndView.addObject("spiderInfo", new SpiderInfo());
+        }
+        return modelAndView;
+	}
+	
+	/**
+	 * 编辑高级配置
+	 * @param spiderInfoId 模板id
+	 * @return
+	 */
+	@RequestMapping(value="editConfigById", method = {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView editConfigById(String spiderInfoId){
+		 ModelAndView modelAndView = new ModelAndView("mypages/my/advanceConfig");
+	        SpiderInfo spiderInfo = spiderInfoService.getById(spiderInfoId).getResult();
+	        //对可能含有html的字段进行转义
+	        spiderInfo.setPublishTimeReg(StringEscapeUtils.escapeHtml4(spiderInfo.getPublishTimeReg()));
+	        spiderInfo.setCategoryReg(StringEscapeUtils.escapeHtml4(spiderInfo.getCategoryReg()));
+	        spiderInfo.setContentReg(StringEscapeUtils.escapeHtml4(spiderInfo.getContentReg()));
+	        spiderInfo.setTitleReg(StringEscapeUtils.escapeHtml4(spiderInfo.getTitleReg()));
+	        spiderInfo.setPublishTimeXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getPublishTimeXPath()));
+	        spiderInfo.setCategoryXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getCategoryXPath()));
+	        spiderInfo.setContentXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getContentXPath()));
+	        spiderInfo.setTitleXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getTitleXPath()));
+	        for (SpiderInfo.FieldConfig config : spiderInfo.getDynamicFields()) {
+	            config.setRegex(StringEscapeUtils.escapeHtml4(config.getRegex()));
+	            config.setXpath(StringEscapeUtils.escapeHtml4(config.getXpath()));
+	        }
+	        modelAndView.addObject("spiderInfo", spiderInfo);
+	        modelAndView.addObject("jsonSpiderInfo", gson.toJson(spiderInfo));
+	        return modelAndView;
+	}
+	
+	/**
+	 * 高级搜索
+	 * @return
+	 */
+	@RequestMapping(value="advanceSearch")
+	public ModelAndView advanceSearch(){
+		ModelAndView modelAndView = new ModelAndView("mypages/my/advanceSearch");
+		return modelAndView;
 	}
 
 	/**
@@ -161,6 +215,65 @@ public class CommonsSpiderPanel extends BaseController {
 		modelAndView.addObject("domain", domain);
 		return modelAndView;
 	}
+	
+	
+	/**
+     * 根据网页id展示网页
+     *
+     * @param id 网页id
+     * @return 展示页
+     */
+    @RequestMapping(value = "showWebpageById", method = {RequestMethod.GET})
+    public ModelAndView showWebpageById(String id) {
+        ModelAndView modelAndView = new ModelAndView("mypages/my/showWebpageById");
+        modelAndView.addObject("webpage", commonWebpageService.getWebpageById(id).getResult());
+        modelAndView.addObject("relatedWebpageList", commonWebpageService.moreLikeThis(id, 15, 1).getResultList());
+        return modelAndView;
+    }
+    
+    
+    /**
+     * 获取query的关联信息
+     *
+     * @param query 查询queryString
+     * @param size  结果集数量
+     * @return 相关信息
+     */
+    @RequestMapping(value = "showRelatedInfo", method = {RequestMethod.GET})
+    public ModelAndView showRelatedInfo(String query, @RequestParam(required = false, defaultValue = "10") int size) {
+        ModelAndView modelAndView = new ModelAndView("mypages/my/showRelatedInfo");
+        Pair<Map<String, List<Terms.Bucket>>, List<Webpage>> result = commonWebpageService.relatedInfo(query, size).getResult();
+        String title = "";
+        String[] queryArray = query.split(":");
+        String field = queryArray[0];
+        String queryWord = queryArray[1];
+        switch (field) {
+            case "keywords":
+                title += "关键词:";
+                break;
+            case "namedEntity.nr":
+                title += "人物:";
+                break;
+            case "namedEntity.ns":
+                title += "地点:";
+                break;
+            case "namedEntity.nt":
+                title += "机构:";
+                break;
+        }
+        title += queryWord + "的相关信息";
+        modelAndView.addObject("relatedPeople", result.getKey().get("relatedPeople"));
+        modelAndView.addObject("title", title);
+        modelAndView.addObject("relatedLocation", result.getKey().get("relatedLocation"));
+        modelAndView.addObject("relatedInstitution", result.getKey().get("relatedInstitution"));
+        modelAndView.addObject("relatedKeywords", result.getKey().get("relatedKeywords"));
+        modelAndView.addObject("relatedWebpageList", result.getValue());
+        return modelAndView;
+    }
+    
+    
+    
+    
 
 	/**
 	 * 域名列表

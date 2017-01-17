@@ -109,11 +109,11 @@
 						<!-- <label for="domain">域名:</label>  --><input type="hidden" class="form-control" id="domain" name="domain" value="${domain}">
 						<button type="submit" class="btn btn-outline btn-primary"
 							id="priceSubmit">搜索</button>
-						<!-- <button class="btn btn-outline btn-primary" id="priceSubmit1"
+						<button class="btn btn-outline btn-primary" id="priceSubmit1"
 							onclick="changePage1()">上一页</button>
 						<button class="btn btn-outline btn-primary" id="priceSubmit2"
-							onclick="changePage2()">下一页</button> -->
-						<c:if test="${page == 1}">
+							onclick="changePage2()">下一页</button>
+						<%-- <c:if test="${page == 1}">
 							<li class="btn btn-outline btn-primary disabled my-a-color"><a href="#">上一页</a></li>
 						</c:if>
 						<c:if test="${page > 1}">
@@ -126,7 +126,7 @@
 						</c:if>
 						<c:if test="${resultBundle.size() == 10}">
 							<li class="btn btn-outline btn-primary my-a-color"><a href="?query=${query}&page=${page+1}&domain=${domain}">下一页</a></li>
-						</c:if>
+						</c:if> --%>
 					</div>
 					<%-- <div class="row">
 						<nav>

@@ -11,12 +11,22 @@
 <link href="${pageContext.request.contextPath}/pages/mypages/css2/my.css" rel="stylesheet" type='text/css' />
 
 <!-- 引入新的样式元素 js3 css3-->
+<%-- <link href="${pageContext.request.contextPath}/pages/mypages/css3/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/pages/mypages/css3/style.min862f.css?v=4.1.0" rel="stylesheet"> --%>
+
+<link href="${pageContext.request.contextPath}/pages/mypages/css3/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/pages/mypages/css3/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/pages/mypages/css3/animate.min.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/pages/mypages/css3/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+<script src="${pageContext.request.contextPath}/pages/mypages/js3/jquery.min.js?v=2.1.4"></script>
+<script src="${pageContext.request.contextPath}/pages/mypages/js3/bootstrap.min.js?v=3.3.6"></script>
+<script src="${pageContext.request.contextPath}/pages/mypages/js3/content.min.js?v=1.0.0"></script>
 
 </head>
 
 <body>
+<%@include file="head.jsp"%>
 <div class="">
 	<div class="main_crawl">
 		<div class="form-group">
@@ -45,10 +55,10 @@
 	</div> --%>
 </div>
 
-	<div class="gohome">
+	<%-- <div class="gohome">
 		<a class="animated bounceInUp" href="${pageContext.request.contextPath}/panel/commons/newsList?page=1" title="返回首页"><i
 			class="fa fa-home"></i></a>
-	</div>
+	</div> --%>
 
 </body>
 
