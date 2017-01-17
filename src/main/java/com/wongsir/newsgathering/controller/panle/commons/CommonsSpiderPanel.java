@@ -97,7 +97,8 @@ public class CommonsSpiderPanel extends BaseController {
 		modelAndView.addObject("domain", domain);
 //		Collection<Webpage> result = new ArrayList<Webpage>();
 		if (StringUtils.isNotBlank(query)) { // 根据关键词进行全文搜索
-			modelAndView.addObject("resultBundle", commonWebpageService.searchByQuery(query).getResultList());
+//			modelAndView.addObject("resultBundle", commonWebpageService.searchByQuery(query).getResultList());
+			 modelAndView.addObject("resultBundle", commonWebpageService.searchByQueryAndPage(query, 10, page).getResultList());
 		} else if (StringUtils.isNotBlank(domain)) {
 			modelAndView.addObject("resultBundle",
 					commonWebpageService.getWebpageByDomain(domain, 10, page).getResultList());
