@@ -1,5 +1,6 @@
 package com.wongsir.newsgathering.service.commons.webpage;
 
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -154,6 +155,28 @@ public class CommonWebpageService {
      */
     public ResultListBundle<Webpage> moreLikeThis(String id, int size, int page) {
         return bundleBuilder.listBundle(id, () -> commonWebpageDAO.moreLikeThis(id, size, page));
+    }
+    
+    /**
+     * 根据爬虫id导出 webpage的JSON对象
+     *
+     * @param uuid         爬虫id
+     * @param includeRaw   是否包含网页快照
+     * @param outputStream 文件输出流
+     */
+    public void exportWebpageJSONBySpiderUUID(String uuid, Boolean includeRaw, OutputStream outputStream) {
+        commonWebpageDAO.exportWebpageJSONBySpiderUUID(uuid, includeRaw, outputStream);
+    }
+    
+    /**
+     * 根据域名导出 webpage的JSON对象
+     *
+     * @param domain       域名
+     * @param includeRaw   是否包含网页快照
+     * @param outputStream 文件输出流
+     */
+    public void exportWebpageJSONByDomain(String domain, Boolean includeRaw, OutputStream outputStream) {
+        commonWebpageDAO.exportWebpageJSONByDomain(domain, includeRaw, outputStream);
     }
 
     /**

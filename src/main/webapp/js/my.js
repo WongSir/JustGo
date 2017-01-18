@@ -1,48 +1,34 @@
-/**
- * Created by gaoshen on 16/5/17.
- */
-function showModal(title, content) {
-    $("#modalTitle").text(title);
-    $("#modalBody").html(content);
-    $('#myModal').modal('show');
-}
-function inputModal(dataName, callback) {
-    $('#data').val('');
-    $("#inputModalTitle").text("请输入" + dataName);
-    $("label[for='data']").html(dataName);
-    $("#confirmInputButton").one("click", function () {
-        $('#inputModal').modal('hide');
-        callback($('#data').val());
-    });
-    $('#inputModal').modal('show');
-}
-function tableModal(data, title) {
-    $("#tableModalTitle").text(title);
-    var html = "";
-    $.each(data, function (k, v) {
-        html += '<tr>\
-            <th scope="row">' + k + '</th>\
-            <td>' + v + '</td>\
-        </tr>';
-    });
-    $("#tableModalBody").html(html);
-    $('#tableModal').modal('show');
-}
-function rpc(url, pram, callback) {
-    $("#confirmModalTitle").text("确定?");
-    $("#confirmModalBody").html("确定要执行" + url + "吗?");
-    $("#confirmButton").one("click", function () {
-        $('#confirmModal').modal('hide');
-        $.getJSON(url, pram, callback);
-    });
-    $('#confirmModal').modal('show');
-}
-function rpcAndShowData(url, pram) {
-    rpc(url, pram, function (data) {
-        if (data.success) {
-            showModal("成功", data.result != undefined ? data.result : data.resultList);
-        } else {
-            showModal("失败", "请重试" + data.errorMsg);
-        }
-    })
-}
+$(document).ready(function(){
+/* News Toggler */
+	$(function(){
+		$(".collapsible-content").hide();
+		$('.news-trigger').toggle(
+			function() {
+				$(this).toggleClass("opened").parent().next().slideDown();
+				$(this).html('收起详情');
+			},
+			function() {
+				$(this).toggleClass("opened").parent().next().slideUp();
+				$(this).html('详情 ');
+			}
+		);
+	});
+	/* End News Toggler */
+	/* Zoom Icon */
+	$(function(){
+		$(".zoom a").append("<span></span>");
+		$(".zoom a").hover(function(){
+			$(this).children("img").stop(true, true).animate({opacity:0.7},300);
+			$(this).children("span").stop(true, true).fadeIn(300);
+		},function(){
+			$(this).children("img").stop(true, true).animate({opacity:1},250);
+			$(this).children("span").stop(true, true).fadeOut(250);
+		});
+	});
+	/* End Zoom Icon */
+	
+});
+
+
+
+

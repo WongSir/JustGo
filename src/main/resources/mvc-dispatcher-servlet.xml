@@ -19,6 +19,8 @@
     </mvc:annotation-driven>
     <mvc:resources location="/js/" mapping="/js/**" cache-period="2592000"/>
     <mvc:resources location="/css/" mapping="/css/**" cache-period="2592000"/>
+    <mvc:resources location="/imgs/" mapping="/imgs/**" cache-period="2592000"/>
+    <mvc:resources location="/fonts/" mapping="/fonts/**" cache-period="2592000"/>
     <mvc:resources location="/pages/mypages/js/" mapping="/pages/mypages/js/**" cache-period="2592000"/>
     <mvc:resources location="/pages/mypages/css/" mapping="/pages/mypages/css/**" cache-period="2592000"/>
     <mvc:resources location="/pages/mypages/js2/" mapping="/pages/mypages/js2/**" cache-period="2592000"/>
@@ -29,7 +31,7 @@
     <mvc:resources location="/pages/mypages/fonts/" mapping="/pages/mypages/fonts/**" cache-period="2592000"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/pages/"/>
+        <property name="prefix" value="/views/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
     <bean class="com.wongsir.newsgathering.gather.commons.CommonSpider" name="commonSpider">

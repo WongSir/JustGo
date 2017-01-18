@@ -2,6 +2,7 @@ package com.wongsir.newsgathering.dao;
 
 import static org.elasticsearch.index.query.QueryBuilders.moreLikeThisQuery;
 
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -28,6 +29,7 @@ import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MoreLikeThisQueryBuilder;
+import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -397,6 +399,46 @@ public class CommonWebpageDAO extends IDAO<Webpage> {
                 .execute()
                 .actionGet();
         return warpHits2List(response.getHits());
+    }
+    
+    /**
+     * 导出 webpage的JSON对象
+     *
+     * @param queryBuilder 查询
+     * @param includeRaw   是否包含网页快照
+     * @param outputStream 文件输出流
+     */
+    private void exportWebpageJSONBy(QueryBuilder queryBuilder, Boolean includeRaw, OutputStream outputStream) {
+        exportData(queryBuilder,
+                searchResponse -> Lists.newLinkedList(),
+                searchResponse -> {
+                    List<String> resultList = Lists.newLinkedList();
+                    List<Webpage> webpageList = warpHits2List(searchResponse.getHits());
+                    webpageList.forEach(webpage -> resultList.add(gson.toJson(includeRaw ? webpage : webpage.setRawHTML(null))));
+                    return resultList;
+                }, outputStream);
+    }
+    
+    /**
+     * 根据domain导出 webpage的JSON对象
+     *
+     * @param domain       域名
+     * @param includeRaw   是否包含网页快照
+     * @param outputStream 文件输出流
+     */
+    public void exportWebpageJSONByDomain(String domain, Boolean includeRaw, OutputStream outputStream) {
+        exportWebpageJSONBy(QueryBuilders.matchQuery("domain", domain).operator(Operator.AND), includeRaw, outputStream);
+    }
+    
+    /**
+     * 根据爬虫id导出 webpage的JSON对象
+     *
+     * @param uuid         爬虫id
+     * @param includeRaw   是否包含网页快照
+     * @param outputStream 文件输出流
+     */
+    public void exportWebpageJSONBySpiderUUID(String uuid, Boolean includeRaw, OutputStream outputStream) {
+        exportWebpageJSONBy(QueryBuilders.matchQuery("spiderUUID", uuid).operator(Operator.AND), includeRaw, outputStream);
     }
 
     /**

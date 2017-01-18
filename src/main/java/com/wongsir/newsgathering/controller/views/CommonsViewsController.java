@@ -1,4 +1,4 @@
-package com.wongsir.newsgathering.controller.panle.commons;
+package com.wongsir.newsgathering.controller.views;
 
 import java.util.List;
 import java.util.Map;
@@ -29,17 +29,17 @@ import com.wongsir.newsgathering.service.commons.spider.CommonsSpiderService;
 import com.wongsir.newsgathering.service.commons.spiderinfo.SpiderInfoService;
 import com.wongsir.newsgathering.service.commons.webpage.CommonWebpageService;
 
-/**
- * CommonsSpiderPanel
- *
- * @author Gao Shen
- * @version 16/5/11
- */
+/** 
+* @Description: CommonsViewsController 
+* @author Wongsir
+* @date 2017年1月4日 下午4:20:50 
+*  
+*/
 @Controller
-@RequestMapping("panel/commons")
-public class CommonsSpiderPanel extends BaseController {
+@RequestMapping("views/")
+public class CommonsViewsController extends BaseController {
 	private static final Gson gson = new Gson();
-	private Logger LOG = LogManager.getLogger(CommonsSpiderPanel.class);
+	private Logger LOG = LogManager.getLogger(CommonsViewsController.class);
 	@Autowired
 	private CommonsSpiderService commonsSpiderService;
 	@Autowired
@@ -90,14 +90,11 @@ public class CommonsSpiderPanel extends BaseController {
 	public ModelAndView newsList(@RequestParam(required = false) String query,
 			@RequestParam(required = false) String domain,
 			@RequestParam(defaultValue = "1", required = false) int page) {
-		ModelAndView modelAndView = new ModelAndView("mypages/my/newsList");
-//		ModelAndView modelAndView = new ModelAndView("mypages/my/list");
+		ModelAndView modelAndView = new ModelAndView("newsList");
 		modelAndView.addObject("query", query);
 		modelAndView.addObject("page", page);
 		modelAndView.addObject("domain", domain);
-//		Collection<Webpage> result = new ArrayList<Webpage>();
 		if (StringUtils.isNotBlank(query)) { // 根据关键词进行全文搜索
-//			modelAndView.addObject("resultBundle", commonWebpageService.searchByQuery(query).getResultList());
 			 modelAndView.addObject("resultBundle", commonWebpageService.searchByQueryAndPage(query, 10, page).getResultList());
 		} else if (StringUtils.isNotBlank(domain)) {
 			modelAndView.addObject("resultBundle",
@@ -115,7 +112,7 @@ public class CommonsSpiderPanel extends BaseController {
 	 */
 	@RequestMapping(value = "crawlingEntry")
 	public ModelAndView crawlingEntry() {
-		ModelAndView modelAndView = new ModelAndView("mypages/my/crawl");
+		ModelAndView modelAndView = new ModelAndView("crawl");
 		return modelAndView;
 	}
 
@@ -126,7 +123,7 @@ public class CommonsSpiderPanel extends BaseController {
 	 */
 	@RequestMapping(value = "siteList", method = RequestMethod.GET)
 	public ModelAndView siteList(@RequestParam(defaultValue = "50", required = false, value = "size") int size) {
-		ModelAndView modelAndView = new ModelAndView("mypages/my/siteList");
+		ModelAndView modelAndView = new ModelAndView("siteList");
 		modelAndView.addObject("siteList", commonWebpageService.countDomain(size).getResult());
 		return modelAndView;
 	}
@@ -138,7 +135,7 @@ public class CommonsSpiderPanel extends BaseController {
 	 */
 	@RequestMapping(value="advanceConfig", method = {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView advanceConfig(String jsonSpiderInfo){
-		ModelAndView modelAndView = new ModelAndView("mypages/my/advanceConfig");
+		ModelAndView modelAndView = new ModelAndView("advanceConfig");
 		if (StringUtils.isNotBlank(jsonSpiderInfo)) {
             SpiderInfo spiderInfo = gson.fromJson(jsonSpiderInfo, SpiderInfo.class);
             //对可能含有html的字段进行转义
@@ -169,7 +166,7 @@ public class CommonsSpiderPanel extends BaseController {
 	 */
 	@RequestMapping(value="editConfigById", method = {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView editConfigById(String spiderInfoId){
-		 ModelAndView modelAndView = new ModelAndView("mypages/my/advanceConfig");
+		 ModelAndView modelAndView = new ModelAndView("advanceConfig");
 	        SpiderInfo spiderInfo = spiderInfoService.getById(spiderInfoId).getResult();
 	        //对可能含有html的字段进行转义
 	        spiderInfo.setPublishTimeReg(StringEscapeUtils.escapeHtml4(spiderInfo.getPublishTimeReg()));
@@ -195,7 +192,7 @@ public class CommonsSpiderPanel extends BaseController {
 	 */
 	@RequestMapping(value="advanceSearch")
 	public ModelAndView advanceSearch(){
-		ModelAndView modelAndView = new ModelAndView("mypages/my/advanceSearch");
+		ModelAndView modelAndView = new ModelAndView("advanceSearch");
 		return modelAndView;
 	}
 
@@ -206,7 +203,7 @@ public class CommonsSpiderPanel extends BaseController {
 	 */
 	@RequestMapping(value = "templateList", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView templateList(String domain, @RequestParam(defaultValue = "1", required = false) int page) {
-		ModelAndView modelAndView = new ModelAndView("mypages/my/templateList");
+		ModelAndView modelAndView = new ModelAndView("templateList");
 		if (StringUtils.isBlank(domain)) {
 			modelAndView.addObject("templateList", spiderInfoService.listAll(10, page).getResultList());
 		} else {
@@ -226,7 +223,7 @@ public class CommonsSpiderPanel extends BaseController {
      */
     @RequestMapping(value = "showWebpageById", method = {RequestMethod.GET})
     public ModelAndView showWebpageById(String id) {
-        ModelAndView modelAndView = new ModelAndView("mypages/my/showWebpageById");
+        ModelAndView modelAndView = new ModelAndView("showWebpageById");
         modelAndView.addObject("webpage", commonWebpageService.getWebpageById(id).getResult());
         modelAndView.addObject("relatedWebpageList", commonWebpageService.moreLikeThis(id, 15, 1).getResultList());
         return modelAndView;
@@ -242,7 +239,7 @@ public class CommonsSpiderPanel extends BaseController {
      */
     @RequestMapping(value = "showRelatedInfo", method = {RequestMethod.GET})
     public ModelAndView showRelatedInfo(String query, @RequestParam(required = false, defaultValue = "10") int size) {
-        ModelAndView modelAndView = new ModelAndView("mypages/my/showRelatedInfo");
+        ModelAndView modelAndView = new ModelAndView("showRelatedInfo");
         Pair<Map<String, List<Terms.Bucket>>, List<Webpage>> result = commonWebpageService.relatedInfo(query, size).getResult();
         String title = "";
         String[] queryArray = query.split(":");

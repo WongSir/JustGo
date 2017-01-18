@@ -1,14 +1,18 @@
 package com.wongsir.newsgathering.controller.commons.webpage;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -125,6 +129,40 @@ public class CommonWebpageController {
     @ResponseBody
     public ResultBundle<Map<String, Long>> countDomain(@RequestParam(value = "size", required = false, defaultValue = "50") int size) {
         return webpageService.countDomain(size);
+    }
+    
+    /**
+     * 根据爬虫id导出 webpage的JSON对象
+     *
+     * @param uuid       爬虫id
+     * @param includeRaw 是否包含网页快照
+     */
+    @RequestMapping(value = "exportWebpageJSONBySpiderUUID", method = RequestMethod.GET, produces = "application/octet-stream")
+    public void exportWebpageJSONBySpiderUUID(String uuid,@RequestParam(value = "includeRaw", required = false, defaultValue = "false") Boolean includeRaw,HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("utf-8");
+        response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        response.setHeader("Content-Disposition", "attachment;fileName=" + new String(uuid.getBytes("UTF-8"), "iso-8859-1") + ".segtxt");
+        OutputStream outputStream = response.getOutputStream();
+        webpageService.exportWebpageJSONBySpiderUUID(uuid, includeRaw, outputStream);
+        outputStream.close();
+    }
+    
+    /**
+     * 根据domain导出 webpage的JSON对象
+     *
+     * @param domain     domain
+     * @param includeRaw 是否包含网页快照
+     */
+    @RequestMapping(value = "exportWebpageJSONByDomain", method = RequestMethod.GET, produces = "application/octet-stream")
+    public void exportWebpageJSONByDomain(String domain,
+                                          @RequestParam(value = "includeRaw", required = false, defaultValue = "false") Boolean includeRaw,
+                                          HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("utf-8");
+        response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        response.setHeader("Content-Disposition", "attachment;fileName=" + new String(domain.getBytes("UTF-8"), "iso-8859-1") + ".segtxt");
+        OutputStream outputStream = response.getOutputStream();
+        webpageService.exportWebpageJSONByDomain(domain, includeRaw, outputStream);
+        outputStream.close();
     }
 
     /**
