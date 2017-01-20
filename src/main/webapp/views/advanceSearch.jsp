@@ -5,10 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>高级配置</title>
+<title>高级搜索</title>
 <%@include file="header.jsp"%>
 </head>
 <body>
-你好高级配置
+你好高级搜索
 </body>
 </html>

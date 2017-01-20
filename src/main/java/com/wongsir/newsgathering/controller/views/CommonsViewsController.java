@@ -1,5 +1,6 @@
 package com.wongsir.newsgathering.controller.views;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.wongsir.newsgathering.advanceSearch.entity.SearchItem;
+import com.wongsir.newsgathering.advanceSearch.service.AdvanceSearchService;
 import com.wongsir.newsgathering.controller.BaseController;
 import com.wongsir.newsgathering.model.async.State;
 import com.wongsir.newsgathering.model.async.Task;
@@ -46,6 +49,9 @@ public class CommonsViewsController extends BaseController {
 	private CommonWebpageService commonWebpageService;
 	@Autowired
 	private SpiderInfoService spiderInfoService;
+	@Autowired
+	private AdvanceSearchService advanceSearchService;
+	
 	/*
 	 * @Autowired private CommonsSpiderService spiderService;
 	 */
@@ -195,6 +201,16 @@ public class CommonsViewsController extends BaseController {
 		ModelAndView modelAndView = new ModelAndView("advanceSearch");
 		return modelAndView;
 	}
+	
+	
+	@RequestMapping(value="advanceSearch/findAllSearch")
+	public List<SearchItem> findAllSearch(){
+		List<SearchItem> list = new ArrayList<SearchItem>();
+		list = advanceSearchService.findAllSearch();
+		System.out.println(list);
+		return list;
+	}
+	
 
 	/**
 	 * 模板列表
