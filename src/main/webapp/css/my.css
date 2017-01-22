@@ -53,11 +53,28 @@ a.hover-color:hover{
 	color: #FFF !important;
 }
 
-/* .container{
-	width: 750px !important;
+.group{
+	margin: 60px 0px 20px 425px;
 }
+ 
+ /* 顶端固定 */
+/*  #fixed_header {
+		position:fixed;
+		z-index:1;
+		top:0;
+		width:100%;
+		background-color:#ccc;
+}
+
  */
  
+
+#searchList h2 > a{
+	text-decoration: underline;
+}
+
+
+
 /* ---------------------------------------------------- */
 /*		Main
 /* ---------------------------------------------------- */

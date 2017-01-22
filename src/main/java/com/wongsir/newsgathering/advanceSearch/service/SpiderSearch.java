@@ -34,12 +34,11 @@ public class SpiderSearch {
      * @param keyWord 关键字
      * @return
      */
-    public List<SearchItem> searchByKey(String keyWord) throws UnsupportedEncodingException{
+    public List<SearchItem> searchByKey(String keyWord){
     	String[] enables=Config.defaultRule.enables.toArray(new String[Config.defaultRule.enables.size()]);
 //    	String[] enables = {"bing"};
-    	int pageTotalNum =10;
+    	int pageTotalNum =5;
 		return searchAndStore(keyWord, pageTotalNum, enables);
-    	
     }
     
     /**
@@ -50,14 +49,13 @@ public class SpiderSearch {
    	 * @return
    	 * @throws UnsupportedEncodingException
    	 */
-   	public List<SearchItem> searchAndStore(String keyword,int pageTotalNum,String... engineNames) throws UnsupportedEncodingException {
+   	public List<SearchItem> searchAndStore(String keyword,int pageTotalNum,String... engineNames){
    		List<SearchItem> searchItems = new ArrayList<SearchItem>();
    		SearchItem searchItem = new SearchItem();
    		for(String engineName:engineNames){
 //   			searchItem = doSearchAndStore(keyword, pageTotalNum, engineName)
            	searchItems.addAll(doSearchAndStore(keyword, pageTotalNum, engineName));
            }
-           
            return searchItems;
        }
     
@@ -69,7 +67,7 @@ public class SpiderSearch {
      * @return
      * @throws UnsupportedEncodingException
      */
-	public List<SearchItem> doSearchAndStore(String keyword,int pageCount,String engineName) throws UnsupportedEncodingException{
+	public List<SearchItem> doSearchAndStore(String keyword,int pageCount,String engineName) {
 			SearchItem searchItem = new SearchItem();
 			List<SearchItem> searchItems = new ArrayList<SearchItem>();
 			Rule.ExtractRule eRule=Config.defaultRule.getExtractRule(engineName);
@@ -77,14 +75,20 @@ public class SpiderSearch {
 	        for(int pageNum=1;pageNum<=pageCount;pageNum++){
 	            StringBuilder sb=new StringBuilder();
 	            int pageCode=pageNum*eRule.pageMulti+eRule.pageOffset;
-	            sb.append(eRule.baseURL)
-	            .append(eRule.queryParam)
-	            .append("=")
-	            .append(URLEncoder.encode(keyword,"utf-8"))
-	            .append("&")
-	            .append(eRule.pageParam)
-	            .append("=")
-	            .append(pageCode);
+	            try {
+					sb.append(eRule.baseURL)
+					.append(eRule.queryParam)
+					.append("=")
+					.append(URLEncoder.encode(keyword,"utf-8"))
+//	            .append(keyword)
+					.append("&")
+					.append(eRule.pageParam)
+					.append("=")
+					.append(pageCode);
+				} catch (UnsupportedEncodingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 	
 	            String url=sb.toString();
 	            try {

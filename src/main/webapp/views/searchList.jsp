@@ -31,8 +31,31 @@
 </style>
 </head>
 <body>
-<%@include file="head.jsp"%>
 
+<div class="header">
+		<div class="header-top">
+			<div class="wrap " id="head">
+				<div class="top-menu">
+					<ul>
+						<li><a href="${pageContext.request.contextPath}/views/newsList">首页</a></li>
+						<li><a href="${pageContext.request.contextPath}/views/siteList">网站列表</a></li>
+						<li><a href="${pageContext.request.contextPath}/views/templateList">模板列表</a></li>
+						<li><a href="${pageContext.request.contextPath}/views/entry">快速入口</a></li>
+						<li><a href="${pageContext.request.contextPath}/views/advanceConfig">高级配置</a></li>
+						<li><a href="${pageContext.request.contextPath}/views/advanceSearch">高级搜索</a></li>
+					</ul>
+				</div>
+				<div class="num">
+					<p> 联系我们 : 020 8888888</p>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+			<!-- 信息分类 -->
+		<div class="category">
+			
+		</div>
+</div>
 
 <div class="group">
 	<form class="form-inline" method="GET" action="${pageContext.request.contextPath}/views/advanceSearch/searchAndCraweling">
@@ -45,7 +68,17 @@
 		</div>
 	</form>
 </div>
-<div class="spinner">
+
+<div id="search-content" class="search-content" style="margin-left:200px">
+	<div id="searchList" class="searchList">
+		<c:forEach items="${spiderSearch}" var="search" varStatus="index">
+				<h2 class="title"><a href="${search.url }">${search.title }</a></h2>
+				<a href="${search.url }">${search.url }</a>
+				<p class="meta">
+					${search.content }
+				</p>
+		</c:forEach>
+	</div>
 </div>
 
 <div id="loading" class="loading" style="display:none">
@@ -57,56 +90,20 @@
 	</div>
 </div>
 
-
 </body>
-
-<script type="text/javascript">
-	
-	$("#search_submit").on('click',function(e){
-		e.preventDefault(); //取消默认事件。
-		var key = $("#keyword").val();
-		search(key);
-		
-		var flag = true;
-		if (flag) {
-		loadStyles('${pageContext.request.contextPath}/css/other.css');
-		}
-	});
-	function search(key){
-		var url = "/newsSpider/views/advanceSearch/searchAndCraweling";
-		
-		$.post(url,{key:key},function(data){
-			
-			if(data!=null){
-				/* if(key==null || key==""){
-					var url = "/newsSpider/views/advanceSearch/searchAndCraweling";
-					window.location.href = url;
-				}else{
-					var url ="${pageContext.request.contextPath}/views/searchList.jsp";
-					window.location.href = url; 
-				} */
-				
-			}else{
-				var url ="/newsSpider/views/error.jsp";
-				window.location.href = url;
-			}
-		});
-	}
-	
-</script>
 
 <script type="text/javascript">     
     //显示遮罩层    
     function showLoading(){     
-        $("#loading").css({ display: "block"});     
+        $("#loading").css({ display: "block"});  
+        $("#searchList").html(" ");
         $("#loading").show();     
     }  
     //隐藏遮罩层  
     function hideLoading(){     
-          
         $("#loading").hide();     
     }  
      
-</script>  
+</script> 
 
 </html>

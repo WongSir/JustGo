@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- header-section-starts-here -->
-	<div class="header">
+	<div class="header" id="fixed_header">
 		<div class="header-top">
 			<div class="wrap " id="head">
 				<div class="top-menu">
@@ -9,13 +9,13 @@
 						<li><a href="${pageContext.request.contextPath}/views/newsList">首页</a></li>
 						<li><a href="${pageContext.request.contextPath}/views/siteList">网站列表</a></li>
 						<li><a href="${pageContext.request.contextPath}/views/templateList">模板列表</a></li>
-						<li><a href="${pageContext.request.contextPath}/views/crawlingEntry">快速入口</a></li>
+						<li><a href="${pageContext.request.contextPath}/views/entry">快速入口</a></li>
 						<li><a href="${pageContext.request.contextPath}/views/advanceConfig">高级配置</a></li>
 						<li><a href="${pageContext.request.contextPath}/views/advanceSearch">高级搜索</a></li>
 					</ul>
 				</div>
 				<div class="num">
-					<p> Call us : 032 2352 782</p>
+					<p> 联系我们 : 020 8888888</p>
 				</div>
 				<div class="clearfix"></div>
 			</div>

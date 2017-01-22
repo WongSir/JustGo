@@ -9,7 +9,27 @@
 <%@include file="header.jsp"%>
 
 <link href="${pageContext.request.contextPath}/css/my.css" rel="stylesheet" type='text/css' />
-
+<style>
+	body {
+	    padding-bottom: 0;
+	    min-height: 100%;
+	    color: #444;
+	    font-size: 13px;
+	    font-family: 'Microsoft YaHei';
+	}
+	.loading {
+		position: absolute;
+		top: 0px;
+		bottom: 0px;
+		left: 0px;
+		right: 0px; 
+		overflow: hidden;
+		z-index: 99999;
+	}
+	.fixed-table-loading-content { display: table !important; _position: relative; overflow: hidden; min-height: 136px; height: 100%; width: 100%; background-color: transparent; }
+	.fixed-table-loading-content > div { vertical-align: middle; display: table-cell; _position: absolute; _top: 50%; width: 100%; }
+	.fixed-table-loading-content > div > div { _position: relative; text-align: center; width: 100%; _top: -50%; font-size: 16px; }
+</style>
 
 </head>
 
@@ -18,6 +38,7 @@
 <div class="">
 	<div class="main_crawl">
 		<div class="form-group">
+			<form class="form-inline" method="GET" action="${pageContext.request.contextPath}/views/crawlingEntry">
 			<div class="input-group col-xs-10">
 			<input type="text" name="num" id="num" class="form-control" placeholder="输入抓取数量（默认抓取30条）">
 				<div class="input-group-btn">
@@ -32,15 +53,25 @@
 				</div>
 				<!-- <input type="text" name="keyword" id="keyword" class="form-control" placeholder="请您输入关键词"> -->
 				<span class="input-group-btn">
-				 	<%-- <button class="btn btn-success" id="search_submit"  style="width: 80px;"><a href="${pageContext.request.contextPath}/commons/spider/crawl">Gosd</a></button> --%>
-					<a id="search_submit" class="btn btn-outline btn-primary " style="width: 80px;" href="${pageContext.request.contextPath}/commons/spider/crawl">Go</a>
+				 	<button class="btn btn-success" type="submit"  style="width: 80px;" onclick="showLoading()">Go</button>
+					<%-- <a id="search_submit" class="btn btn-outline btn-primary " style="width: 80px;" href="${pageContext.request.contextPath}/commons/spider/crawl">Go</a> --%>
 				</span>
 			</div>
+			</form>
 		</div>
 	</div>
 	<%-- <div class="">
 		<button id="fat-btn" class="btn btn-primary homepage" type="button"> <a href="${pageContext.request.contextPath}/panel/commons/newsList?page=1">返回首页</a>
 	</div> --%>
+</div>
+
+<div id="loading" class="loading" style="display:none">
+	<div class="fixed-table-loading-content">
+		<div><div>
+			<i class="fa fa-spinner fa-spin fa-lg fa-icon-style" style="color:#090;"></i>
+			正在努力地加载页面中，请稍候……
+		</div></div>
+	</div>
 </div>
 
 	<%-- <div class="gohome">
@@ -91,5 +122,19 @@
 	}
 	
 </script>
+
+<script type="text/javascript">     
+    //显示遮罩层    
+    function showLoading(){     
+        $("#loading").css({ display: "block"});     
+        $("#loading").show();     
+    }  
+    //隐藏遮罩层  
+    function hideLoading(){     
+          
+        $("#loading").hide();     
+    }  
+     
+</script> 
 
 </html>

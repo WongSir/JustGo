@@ -7,7 +7,7 @@
 <head>
 <title>网站列表</title>
 <%@include file="header.jsp"%>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/my.css" type="text/css" />
 </head>
 <body>
 <%@include file="head.jsp"%>
