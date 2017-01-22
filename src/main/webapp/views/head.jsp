@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- header-section-starts-here -->
-	<div class="header">
+	<div class="header" id="fixed_header">
 		<div class="header-top">
 			<div class="wrap " id="head">
 				<div class="top-menu">

@@ -1,5 +1,6 @@
 package com.wongsir.newsgathering.controller.views;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.wongsir.newsgathering.advanceSearch.entity.SearchItem;
 import com.wongsir.newsgathering.advanceSearch.service.AdvanceSearchService;
+import com.wongsir.newsgathering.advanceSearch.service.SpiderSearch;
 import com.wongsir.newsgathering.controller.BaseController;
 import com.wongsir.newsgathering.model.async.State;
 import com.wongsir.newsgathering.model.async.Task;
@@ -51,42 +54,13 @@ public class CommonsViewsController extends BaseController {
 	private SpiderInfoService spiderInfoService;
 	@Autowired
 	private AdvanceSearchService advanceSearchService;
+	@Autowired
+	private SpiderSearch spiderSearch;
 	
 	/*
 	 * @Autowired private CommonsSpiderService spiderService;
 	 */
-
-	/**
-	 * 已抓取的网页列表
-	 *
-	 * @param query
-	 *            查询词
-	 * @param domain
-	 *            域名
-	 * @param page
-	 *            页码
-	 * @return
-	 */
-	@RequestMapping(value = { "list", "" }, method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(required = false) String query,
-			@RequestParam(required = false) String domain,
-			@RequestParam(defaultValue = "1", required = false) int page) {
-		ModelAndView modelAndView = new ModelAndView("panel/commons/list");
-		modelAndView.addObject("query", query);
-		modelAndView.addObject("page", page);
-		modelAndView.addObject("domain", domain);
-		if (StringUtils.isNotBlank(query)) {
-			modelAndView.addObject("resultBundle",
-					commonWebpageService.searchByQueryAndPage(query, 10, page).getResultList());
-		} else if (StringUtils.isNotBlank(domain)) {
-			modelAndView.addObject("resultBundle",
-					commonWebpageService.getWebpageByDomain(domain, 10, page).getResultList());
-		} else {
-			modelAndView.addObject("resultBundle", commonWebpageService.listAll(10, page).getResultList());
-		}
-		return modelAndView;
-	}
-
+	
 	/**
 	 * 资讯列表页
 	 * 
@@ -196,14 +170,23 @@ public class CommonsViewsController extends BaseController {
 	 * 高级搜索
 	 * @return
 	 */
-	@RequestMapping(value="advanceSearch")
-	public ModelAndView advanceSearch(){
+	@RequestMapping(value="",method = {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView advanceSearch(String key){
 		ModelAndView modelAndView = new ModelAndView("advanceSearch");
+		modelAndView.addObject("key",key);
+//		List<SearchItem> list = new ArrayList<SearchItem>();
+//		try {
+//			list = spiderSearch.searchByKey(key);
+//			modelAndView.addObject("spiderSearch", list);
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+		modelAndView.addObject("spiderSearch", spiderSearch.searchByKey(key));
 		return modelAndView;
 	}
 	
 	
-	@RequestMapping(value="advanceSearch/findAllSearch")
+	@RequestMapping(value="advanceSearch/findAll")
 	public List<SearchItem> findAllSearch(){
 		List<SearchItem> list = new ArrayList<SearchItem>();
 		list = advanceSearchService.findAllSearch();
