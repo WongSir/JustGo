@@ -8,6 +8,7 @@
 <title>高级搜索</title>
 <%@include file="header.jsp"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/my.css" type="text/css" />
+<<<<<<< HEAD
 <style>
 	body {
 	    padding-bottom: 0;

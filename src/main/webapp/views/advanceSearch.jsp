@@ -8,6 +8,7 @@
 <title>高级搜索</title>
 <%@include file="header.jsp"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/my.css" type="text/css" />
+<<<<<<< HEAD
 <style>
 	body {
 	    padding-bottom: 0;
@@ -29,12 +30,15 @@
 	.fixed-table-loading-content > div { vertical-align: middle; display: table-cell; _position: absolute; _top: 50%; width: 100%; }
 	.fixed-table-loading-content > div > div { _position: relative; text-align: center; width: 100%; _top: -50%; font-size: 16px; }
 </style>
+=======
+>>>>>>> branch 'master' of git@github.com:WongSir/JustGo.git
 </head>
 <body>
 <%@include file="head.jsp"%>
 
 
 <div class="group">
+<<<<<<< HEAD
 	<form class="form-inline" method="GET" action="${pageContext.request.contextPath}/views/advanceSearch/searchAndCraweling">
 		<div class="input-group col-xs-8">
 			<input type="text" name="key" id="key" class="form-control" placeholder="请您输入关键词">
