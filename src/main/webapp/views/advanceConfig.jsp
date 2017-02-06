@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>高级搜索</title>
+<title>高级配置</title>
 <%-- <%@include file="header.jsp"%> --%>
 
 <meta charset="utf-8">

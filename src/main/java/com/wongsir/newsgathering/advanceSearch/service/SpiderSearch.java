@@ -120,7 +120,7 @@ public class SpiderSearch {
 	                    searchItem.setSearchKey(keyword);
 	                    
 	                  //此处添加数据库相关操作
-	                    advanceSearchService.addSearchItem(searchItem);
+//	                    advanceSearchService.addSearchItem(searchItem);
 	                    
 	                    System.out.println(searchItem);
 	                    searchItems.add(searchItem);
@@ -138,7 +138,7 @@ public class SpiderSearch {
 	        }
 	        
 	        KeyWord keyWord = new KeyWord(keyword);
-	        advanceSearchService.addKeyWord(keyWord);
+//	        advanceSearchService.addKeyWord(keyWord);
 	        
 			return searchItems;
 		}

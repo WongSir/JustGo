@@ -110,7 +110,7 @@ public class CommonsViewsController extends BaseController {
 		SpiderTemplate spiderTemplate = new SpiderTemplate();
     	String spiderInfoJson = spiderTemplate.jsonFileTemplate(code);
     	ResultBundle<String> result = new  ResultBundle<String>();
-//    	result = commonsSpiderService.startWithTemplate(spiderInfoJson,count);
+    	result = commonsSpiderService.startWithTemplate(spiderInfoJson,count);
 //    	modelAndView.addObject("resultBundle", result);
     	try {
 			Thread.sleep(10 * 1000L);

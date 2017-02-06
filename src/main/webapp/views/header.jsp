@@ -35,7 +35,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 <!-- 引入新的样式元素 js3 css3 -->
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/pages/mypages/imgs/favicon.ico">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/imgs/favicon.ico">
 <link href="${pageContext.request.contextPath}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/animate.min.css" rel="stylesheet">
