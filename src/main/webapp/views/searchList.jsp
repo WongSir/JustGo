@@ -60,7 +60,7 @@
 <div class="group">
 	<form class="form-inline" method="GET" action="${pageContext.request.contextPath}/views/advanceSearch/searchAndCraweling">
 		<div class="input-group col-xs-8">
-			<input type="text" name="key" id="key" class="form-control" placeholder="请您输入关键词">
+			<input type="text" name="key" id="key" class="form-control" placeholder="请您输入关键词" value="${key }">
 			<span class="input-group-btn">
 			 	<button type="submit" class="btn btn-success"  style="width: 80px;" onclick="showLoading()">Go</button>
 				<!-- <a  class="btn btn-outline btn-primary " style="width: 80px;" href="#" onclick="showLoading()">Go</a> -->  <!-- onclick="showLoading()"  id="search_submit"触发jQuery-->
@@ -72,8 +72,8 @@
 <div id="search-content" class="search-content" style="margin-left:200px">
 	<div id="searchList" class="searchList">
 		<c:forEach items="${spiderSearch}" var="search" varStatus="index">
-				<h2 class="title"><a href="${search.url }">${search.title }</a></h2>
-				<a href="${search.url }">${search.url }</a>
+				<h2 class="title"><a href="${search.url }" target="_blank">${search.title }</a></h2>
+				<a href="${search.url }" target="_blank">${search.url }</a>
 				<p class="meta">
 					${search.content }
 				</p>

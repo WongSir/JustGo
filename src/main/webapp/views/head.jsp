@@ -22,7 +22,7 @@
 		</div>
 		<div class="header-bottom">
 			<div class="logo text-center">
-				<a href="/spider/pages/mypages/my/crawl.jsp"><img src="${pageContext.request.contextPath}/pages/mypages/imgs/logo.jpg" alt="" /></a>
+				<a href="/spider/views/crawl.jsp"><img src="${pageContext.request.contextPath}/imgs/logo.jpg" alt="" /></a>
 			</div>
 		</div>	
 			<!-- 信息分类 -->
