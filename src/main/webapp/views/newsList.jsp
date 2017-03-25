@@ -13,13 +13,6 @@
 <script src="${pageContext.request.contextPath}/js/config.js"></script>
 
 
-<!-- 引入新的样式元素 js-->
-<script src="${pageContext.request.contextPath}/pages/mypages/js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/pages/mypages/js/jquery.validate.min.js"></script>
-<script src="${pageContext.request.contextPath}/pages/mypages/js/jquery.form.js"></script>
-<script src="${pageContext.request.contextPath}/pages/mypages/js/messages_zh.min.js"></script>
-<script src="${pageContext.request.contextPath}/pages/mypages/js/tether.min.js"></script>
-<script src="${pageContext.request.contextPath}/pages/mypages/js/bootstrap.js"></script>
 
 </head>
 <body>

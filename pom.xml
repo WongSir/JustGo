@@ -295,6 +295,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>spider</finalName>
+        <finalName>newsSpider</finalName>
     </build>
 </project>

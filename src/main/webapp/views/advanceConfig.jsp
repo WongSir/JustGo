@@ -672,7 +672,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       rpcAndShowData("${pageContext.request.contextPath}/commons/spiderinfo/save", {spiderInfoJson: JSON.stringify(formToJson("spiderInfoForm"))});
   }
   function showModal(title, content, cancelAction, confirmAction) {
-	  alert("showModal");
       $("#confirmModalTitle").text(title);
       $("#confirmModalBody").html(content);
       $("#cancelButton").one("click", cancelAction);
